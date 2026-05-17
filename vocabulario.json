@@ -1,0 +1,1538 @@
+[
+  {
+    "de": "Hallo",
+    "es": "Hola",
+    "lektion": "L1 Hallo",
+    "nivel": "A1"
+  },
+  {
+    "de": "Guten Tag",
+    "es": "Buenos días",
+    "lektion": "L1 Hallo",
+    "nivel": "A1"
+  },
+  {
+    "de": "Guten Morgen",
+    "es": "Buenos días (mañana)",
+    "lektion": "L1 Hallo",
+    "nivel": "A1"
+  },
+  {
+    "de": "Guten Abend",
+    "es": "Buenas noches",
+    "lektion": "L1 Hallo",
+    "nivel": "A1"
+  },
+  {
+    "de": "Auf Wiedersehen",
+    "es": "Adiós",
+    "lektion": "L1 Hallo",
+    "nivel": "A1"
+  },
+  {
+    "de": "Tschüs",
+    "es": "Adiós (informal)",
+    "lektion": "L1 Hallo",
+    "nivel": "A1"
+  },
+  {
+    "de": "Wie geht es dir?",
+    "es": "¿Cómo estás?",
+    "lektion": "L1 Hallo",
+    "nivel": "A1"
+  },
+  {
+    "de": "Mir geht es gut",
+    "es": "Estoy bien",
+    "lektion": "L1 Hallo",
+    "nivel": "A1"
+  },
+  {
+    "de": "Ich heiße",
+    "es": "Me llamo",
+    "lektion": "L1 Hallo",
+    "nivel": "A1"
+  },
+  {
+    "de": "Ich bin",
+    "es": "Soy",
+    "lektion": "L1 Hallo",
+    "nivel": "A1"
+  },
+  {
+    "de": "Wer bist du?",
+    "es": "¿Quién eres?",
+    "lektion": "L1 Hallo",
+    "nivel": "A1"
+  },
+  {
+    "de": "Ich komme aus",
+    "es": "Vengo de",
+    "lektion": "L1 Hallo",
+    "nivel": "A1"
+  },
+  {
+    "de": "Deutschland",
+    "es": "Alemania",
+    "lektion": "L1 Hallo",
+    "nivel": "A1"
+  },
+  {
+    "de": "Spanien",
+    "es": "España",
+    "lektion": "L1 Hallo",
+    "nivel": "A1"
+  },
+  {
+    "de": "sprechen",
+    "es": "hablar",
+    "lektion": "L1 Hallo",
+    "nivel": "A1"
+  },
+  {
+    "de": "Ich spreche Deutsch",
+    "es": "Hablo alemán",
+    "lektion": "L1 Hallo",
+    "nivel": "A1"
+  },
+  {
+    "de": "bitte",
+    "es": "por favor",
+    "lektion": "L1 Hallo",
+    "nivel": "A1"
+  },
+  {
+    "de": "danke",
+    "es": "gracias",
+    "lektion": "L1 Hallo",
+    "nivel": "A1"
+  },
+  {
+    "de": "Ja",
+    "es": "Sí",
+    "lektion": "L1 Hallo",
+    "nivel": "A1"
+  },
+  {
+    "de": "Nein",
+    "es": "No",
+    "lektion": "L1 Hallo",
+    "nivel": "A1"
+  },
+  {
+    "de": "eins",
+    "es": "uno",
+    "lektion": "L1 Hallo",
+    "nivel": "A1"
+  },
+  {
+    "de": "zwei",
+    "es": "dos",
+    "lektion": "L1 Hallo",
+    "nivel": "A1"
+  },
+  {
+    "de": "drei",
+    "es": "tres",
+    "lektion": "L1 Hallo",
+    "nivel": "A1"
+  },
+  {
+    "de": "vier",
+    "es": "cuatro",
+    "lektion": "L1 Hallo",
+    "nivel": "A1"
+  },
+  {
+    "de": "fünf",
+    "es": "cinco",
+    "lektion": "L1 Hallo",
+    "nivel": "A1"
+  },
+  {
+    "de": "die Familie",
+    "es": "la familia",
+    "lektion": "L2 Familie",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Vater",
+    "es": "el padre",
+    "lektion": "L2 Familie",
+    "nivel": "A1"
+  },
+  {
+    "de": "die Mutter",
+    "es": "la madre",
+    "lektion": "L2 Familie",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Bruder",
+    "es": "el hermano",
+    "lektion": "L2 Familie",
+    "nivel": "A1"
+  },
+  {
+    "de": "die Schwester",
+    "es": "la hermana",
+    "lektion": "L2 Familie",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Großvater",
+    "es": "el abuelo",
+    "lektion": "L2 Familie",
+    "nivel": "A1"
+  },
+  {
+    "de": "die Großmutter",
+    "es": "la abuela",
+    "lektion": "L2 Familie",
+    "nivel": "A1"
+  },
+  {
+    "de": "das Kind",
+    "es": "el niño/a",
+    "lektion": "L2 Familie",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Sohn",
+    "es": "el hijo",
+    "lektion": "L2 Familie",
+    "nivel": "A1"
+  },
+  {
+    "de": "die Tochter",
+    "es": "la hija",
+    "lektion": "L2 Familie",
+    "nivel": "A1"
+  },
+  {
+    "de": "leben",
+    "es": "vivir",
+    "lektion": "L2 Familie",
+    "nivel": "A1"
+  },
+  {
+    "de": "wohnen",
+    "es": "residir",
+    "lektion": "L2 Familie",
+    "nivel": "A1"
+  },
+  {
+    "de": "Wie alt bist du?",
+    "es": "¿Cuántos años tienes?",
+    "lektion": "L2 Familie",
+    "nivel": "A1"
+  },
+  {
+    "de": "alt",
+    "es": "viejo/a",
+    "lektion": "L2 Familie",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Freund",
+    "es": "el amigo",
+    "lektion": "L2 Familie",
+    "nivel": "A1"
+  },
+  {
+    "de": "die Freundin",
+    "es": "la amiga",
+    "lektion": "L2 Familie",
+    "nivel": "A1"
+  },
+  {
+    "de": "die Stadt",
+    "es": "la ciudad",
+    "lektion": "L2 Familie",
+    "nivel": "A1"
+  },
+  {
+    "de": "lesen",
+    "es": "leer",
+    "lektion": "L3 Hobbys",
+    "nivel": "A1"
+  },
+  {
+    "de": "Musik hören",
+    "es": "escuchar música",
+    "lektion": "L3 Hobbys",
+    "nivel": "A1"
+  },
+  {
+    "de": "fernsehen",
+    "es": "ver la tele",
+    "lektion": "L3 Hobbys",
+    "nivel": "A1"
+  },
+  {
+    "de": "kochen",
+    "es": "cocinar",
+    "lektion": "L3 Hobbys",
+    "nivel": "A1"
+  },
+  {
+    "de": "essen",
+    "es": "comer",
+    "lektion": "L3 Hobbys",
+    "nivel": "A1"
+  },
+  {
+    "de": "trinken",
+    "es": "beber",
+    "lektion": "L3 Hobbys",
+    "nivel": "A1"
+  },
+  {
+    "de": "schlafen",
+    "es": "dormir",
+    "lektion": "L3 Hobbys",
+    "nivel": "A1"
+  },
+  {
+    "de": "lernen",
+    "es": "estudiar",
+    "lektion": "L3 Hobbys",
+    "nivel": "A1"
+  },
+  {
+    "de": "spielen",
+    "es": "jugar",
+    "lektion": "L3 Hobbys",
+    "nivel": "A1"
+  },
+  {
+    "de": "schwimmen",
+    "es": "nadar",
+    "lektion": "L3 Hobbys",
+    "nivel": "A1"
+  },
+  {
+    "de": "Rad fahren",
+    "es": "montar en bici",
+    "lektion": "L3 Hobbys",
+    "nivel": "A1"
+  },
+  {
+    "de": "tanzen",
+    "es": "bailar",
+    "lektion": "L3 Hobbys",
+    "nivel": "A1"
+  },
+  {
+    "de": "singen",
+    "es": "cantar",
+    "lektion": "L3 Hobbys",
+    "nivel": "A1"
+  },
+  {
+    "de": "reisen",
+    "es": "viajar",
+    "lektion": "L3 Hobbys",
+    "nivel": "A1"
+  },
+  {
+    "de": "gehen",
+    "es": "ir",
+    "lektion": "L3 Hobbys",
+    "nivel": "A1"
+  },
+  {
+    "de": "heute",
+    "es": "hoy",
+    "lektion": "L3 Hobbys",
+    "nivel": "A1"
+  },
+  {
+    "de": "morgen",
+    "es": "mañana",
+    "lektion": "L3 Hobbys",
+    "nivel": "A1"
+  },
+  {
+    "de": "gestern",
+    "es": "ayer",
+    "lektion": "L3 Hobbys",
+    "nivel": "A1"
+  },
+  {
+    "de": "immer",
+    "es": "siempre",
+    "lektion": "L3 Hobbys",
+    "nivel": "A1"
+  },
+  {
+    "de": "nie",
+    "es": "nunca",
+    "lektion": "L3 Hobbys",
+    "nivel": "A1"
+  },
+  {
+    "de": "Wie spät ist es?",
+    "es": "¿Qué hora es?",
+    "lektion": "L3 Hobbys",
+    "nivel": "A1"
+  },
+  {
+    "de": "das Brot",
+    "es": "el pan",
+    "lektion": "L4 Essen",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Käse",
+    "es": "el queso",
+    "lektion": "L4 Essen",
+    "nivel": "A1"
+  },
+  {
+    "de": "die Butter",
+    "es": "la mantequilla",
+    "lektion": "L4 Essen",
+    "nivel": "A1"
+  },
+  {
+    "de": "die Wurst",
+    "es": "la salchicha",
+    "lektion": "L4 Essen",
+    "nivel": "A1"
+  },
+  {
+    "de": "das Ei",
+    "es": "el huevo",
+    "lektion": "L4 Essen",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Apfel",
+    "es": "la manzana",
+    "lektion": "L4 Essen",
+    "nivel": "A1"
+  },
+  {
+    "de": "die Banane",
+    "es": "el plátano",
+    "lektion": "L4 Essen",
+    "nivel": "A1"
+  },
+  {
+    "de": "die Orange",
+    "es": "la naranja",
+    "lektion": "L4 Essen",
+    "nivel": "A1"
+  },
+  {
+    "de": "die Kartoffel",
+    "es": "la papa",
+    "lektion": "L4 Essen",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Fisch",
+    "es": "el pescado",
+    "lektion": "L4 Essen",
+    "nivel": "A1"
+  },
+  {
+    "de": "das Fleisch",
+    "es": "la carne",
+    "lektion": "L4 Essen",
+    "nivel": "A1"
+  },
+  {
+    "de": "das Gemüse",
+    "es": "la verdura",
+    "lektion": "L4 Essen",
+    "nivel": "A1"
+  },
+  {
+    "de": "das Obst",
+    "es": "la fruta",
+    "lektion": "L4 Essen",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Reis",
+    "es": "el arroz",
+    "lektion": "L4 Essen",
+    "nivel": "A1"
+  },
+  {
+    "de": "die Nudeln",
+    "es": "la pasta",
+    "lektion": "L4 Essen",
+    "nivel": "A1"
+  },
+  {
+    "de": "das Wasser",
+    "es": "el agua",
+    "lektion": "L4 Essen",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Saft",
+    "es": "el jugo",
+    "lektion": "L4 Essen",
+    "nivel": "A1"
+  },
+  {
+    "de": "die Milch",
+    "es": "la leche",
+    "lektion": "L4 Essen",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Kaffee",
+    "es": "el café",
+    "lektion": "L4 Essen",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Tee",
+    "es": "el té",
+    "lektion": "L4 Essen",
+    "nivel": "A1"
+  },
+  {
+    "de": "lecker",
+    "es": "delicioso",
+    "lektion": "L4 Essen",
+    "nivel": "A1"
+  },
+  {
+    "de": "Ich habe Hunger",
+    "es": "Tengo hambre",
+    "lektion": "L4 Essen",
+    "nivel": "A1"
+  },
+  {
+    "de": "Ich habe Durst",
+    "es": "Tengo sed",
+    "lektion": "L4 Essen",
+    "nivel": "A1"
+  },
+  {
+    "de": "Frühstück",
+    "es": "desayuno",
+    "lektion": "L4 Essen",
+    "nivel": "A1"
+  },
+  {
+    "de": "Mittagessen",
+    "es": "almuerzo",
+    "lektion": "L4 Essen",
+    "nivel": "A1"
+  },
+  {
+    "de": "Abendessen",
+    "es": "cena",
+    "lektion": "L4 Essen",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Bleistift",
+    "es": "el lápiz",
+    "lektion": "L5 Schule",
+    "nivel": "A1"
+  },
+  {
+    "de": "das Buch",
+    "es": "el libro",
+    "lektion": "L5 Schule",
+    "nivel": "A1"
+  },
+  {
+    "de": "das Heft",
+    "es": "el cuaderno",
+    "lektion": "L5 Schule",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Rucksack",
+    "es": "la mochila",
+    "lektion": "L5 Schule",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Stift",
+    "es": "el bolígrafo",
+    "lektion": "L5 Schule",
+    "nivel": "A1"
+  },
+  {
+    "de": "die Schere",
+    "es": "las tijeras",
+    "lektion": "L5 Schule",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Tisch",
+    "es": "la mesa",
+    "lektion": "L5 Schule",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Stuhl",
+    "es": "la silla",
+    "lektion": "L5 Schule",
+    "nivel": "A1"
+  },
+  {
+    "de": "die Tafel",
+    "es": "la pizarra",
+    "lektion": "L5 Schule",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Lehrer",
+    "es": "el profesor",
+    "lektion": "L5 Schule",
+    "nivel": "A1"
+  },
+  {
+    "de": "die Lehrerin",
+    "es": "la profesora",
+    "lektion": "L5 Schule",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Schüler",
+    "es": "el alumno",
+    "lektion": "L5 Schule",
+    "nivel": "A1"
+  },
+  {
+    "de": "die Klasse",
+    "es": "la clase",
+    "lektion": "L5 Schule",
+    "nivel": "A1"
+  },
+  {
+    "de": "die Hausaufgabe",
+    "es": "la tarea",
+    "lektion": "L5 Schule",
+    "nivel": "A1"
+  },
+  {
+    "de": "schreiben",
+    "es": "escribir",
+    "lektion": "L5 Schule",
+    "nivel": "A1"
+  },
+  {
+    "de": "rechnen",
+    "es": "calcular",
+    "lektion": "L5 Schule",
+    "nivel": "A1"
+  },
+  {
+    "de": "malen",
+    "es": "pintar",
+    "lektion": "L5 Schule",
+    "nivel": "A1"
+  },
+  {
+    "de": "die Hose",
+    "es": "los pantalones",
+    "lektion": "L6 Kleidung",
+    "nivel": "A1"
+  },
+  {
+    "de": "das T-Shirt",
+    "es": "la camiseta",
+    "lektion": "L6 Kleidung",
+    "nivel": "A1"
+  },
+  {
+    "de": "die Jacke",
+    "es": "la chaqueta",
+    "lektion": "L6 Kleidung",
+    "nivel": "A1"
+  },
+  {
+    "de": "das Kleid",
+    "es": "el vestido",
+    "lektion": "L6 Kleidung",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Pullover",
+    "es": "el suéter",
+    "lektion": "L6 Kleidung",
+    "nivel": "A1"
+  },
+  {
+    "de": "die Schuhe",
+    "es": "los zapatos",
+    "lektion": "L6 Kleidung",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Mantel",
+    "es": "el abrigo",
+    "lektion": "L6 Kleidung",
+    "nivel": "A1"
+  },
+  {
+    "de": "rot",
+    "es": "rojo",
+    "lektion": "L6 Kleidung",
+    "nivel": "A1"
+  },
+  {
+    "de": "blau",
+    "es": "azul",
+    "lektion": "L6 Kleidung",
+    "nivel": "A1"
+  },
+  {
+    "de": "grün",
+    "es": "verde",
+    "lektion": "L6 Kleidung",
+    "nivel": "A1"
+  },
+  {
+    "de": "gelb",
+    "es": "amarillo",
+    "lektion": "L6 Kleidung",
+    "nivel": "A1"
+  },
+  {
+    "de": "schwarz",
+    "es": "negro",
+    "lektion": "L6 Kleidung",
+    "nivel": "A1"
+  },
+  {
+    "de": "weiß",
+    "es": "blanco",
+    "lektion": "L6 Kleidung",
+    "nivel": "A1"
+  },
+  {
+    "de": "braun",
+    "es": "marrón",
+    "lektion": "L6 Kleidung",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Kopf",
+    "es": "la cabeza",
+    "lektion": "L7 Körper",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Arm",
+    "es": "el brazo",
+    "lektion": "L7 Körper",
+    "nivel": "A1"
+  },
+  {
+    "de": "das Bein",
+    "es": "la pierna",
+    "lektion": "L7 Körper",
+    "nivel": "A1"
+  },
+  {
+    "de": "die Hand",
+    "es": "la mano",
+    "lektion": "L7 Körper",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Fuß",
+    "es": "el pie",
+    "lektion": "L7 Körper",
+    "nivel": "A1"
+  },
+  {
+    "de": "das Auge",
+    "es": "el ojo",
+    "lektion": "L7 Körper",
+    "nivel": "A1"
+  },
+  {
+    "de": "das Ohr",
+    "es": "la oreja",
+    "lektion": "L7 Körper",
+    "nivel": "A1"
+  },
+  {
+    "de": "die Nase",
+    "es": "la nariz",
+    "lektion": "L7 Körper",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Mund",
+    "es": "la boca",
+    "lektion": "L7 Körper",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Zahn",
+    "es": "el diente",
+    "lektion": "L7 Körper",
+    "nivel": "A1"
+  },
+  {
+    "de": "das Haar",
+    "es": "el pelo",
+    "lektion": "L7 Körper",
+    "nivel": "A1"
+  },
+  {
+    "de": "krank",
+    "es": "enfermo/a",
+    "lektion": "L7 Körper",
+    "nivel": "A1"
+  },
+  {
+    "de": "gesund",
+    "es": "sano/a",
+    "lektion": "L7 Körper",
+    "nivel": "A1"
+  },
+  {
+    "de": "das Haus",
+    "es": "la casa",
+    "lektion": "L8 Haus",
+    "nivel": "A1"
+  },
+  {
+    "de": "die Wohnung",
+    "es": "el apartamento",
+    "lektion": "L8 Haus",
+    "nivel": "A1"
+  },
+  {
+    "de": "das Zimmer",
+    "es": "la habitación",
+    "lektion": "L8 Haus",
+    "nivel": "A1"
+  },
+  {
+    "de": "die Küche",
+    "es": "la cocina",
+    "lektion": "L8 Haus",
+    "nivel": "A1"
+  },
+  {
+    "de": "das Bad",
+    "es": "el baño",
+    "lektion": "L8 Haus",
+    "nivel": "A1"
+  },
+  {
+    "de": "das Schlafzimmer",
+    "es": "el dormitorio",
+    "lektion": "L8 Haus",
+    "nivel": "A1"
+  },
+  {
+    "de": "das Wohnzimmer",
+    "es": "la sala",
+    "lektion": "L8 Haus",
+    "nivel": "A1"
+  },
+  {
+    "de": "das Bett",
+    "es": "la cama",
+    "lektion": "L8 Haus",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Tisch",
+    "es": "la mesa",
+    "lektion": "L8 Haus",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Stuhl",
+    "es": "la silla",
+    "lektion": "L8 Haus",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Schrank",
+    "es": "el armario",
+    "lektion": "L8 Haus",
+    "nivel": "A1"
+  },
+  {
+    "de": "das Fenster",
+    "es": "la ventana",
+    "lektion": "L8 Haus",
+    "nivel": "A1"
+  },
+  {
+    "de": "die Tür",
+    "es": "la puerta",
+    "lektion": "L8 Haus",
+    "nivel": "A1"
+  },
+  {
+    "de": "die Sonne",
+    "es": "el sol",
+    "lektion": "L9 Wetter",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Regen",
+    "es": "la lluvia",
+    "lektion": "L9 Wetter",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Schnee",
+    "es": "la nieve",
+    "lektion": "L9 Wetter",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Wind",
+    "es": "el viento",
+    "lektion": "L9 Wetter",
+    "nivel": "A1"
+  },
+  {
+    "de": "warm",
+    "es": "cálido",
+    "lektion": "L9 Wetter",
+    "nivel": "A1"
+  },
+  {
+    "de": "kalt",
+    "es": "frío",
+    "lektion": "L9 Wetter",
+    "nivel": "A1"
+  },
+  {
+    "de": "heiß",
+    "es": "caluroso",
+    "lektion": "L9 Wetter",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Frühling",
+    "es": "la primavera",
+    "lektion": "L9 Wetter",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Sommer",
+    "es": "el verano",
+    "lektion": "L9 Wetter",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Herbst",
+    "es": "el otoño",
+    "lektion": "L9 Wetter",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Winter",
+    "es": "el invierno",
+    "lektion": "L9 Wetter",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Hund",
+    "es": "el perro",
+    "lektion": "L10 Tiere",
+    "nivel": "A1"
+  },
+  {
+    "de": "die Katze",
+    "es": "el gato",
+    "lektion": "L10 Tiere",
+    "nivel": "A1"
+  },
+  {
+    "de": "das Pferd",
+    "es": "el caballo",
+    "lektion": "L10 Tiere",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Vogel",
+    "es": "el pájaro",
+    "lektion": "L10 Tiere",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Fisch",
+    "es": "el pez",
+    "lektion": "L10 Tiere",
+    "nivel": "A1"
+  },
+  {
+    "de": "die Maus",
+    "es": "el ratón",
+    "lektion": "L10 Tiere",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Hase",
+    "es": "el conejo",
+    "lektion": "L10 Tiere",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Elefant",
+    "es": "el elefante",
+    "lektion": "L10 Tiere",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Löwe",
+    "es": "el león",
+    "lektion": "L10 Tiere",
+    "nivel": "A1"
+  },
+  {
+    "de": "das Auto",
+    "es": "el coche",
+    "lektion": "Transport",
+    "nivel": "A1"
+  },
+  {
+    "de": "das Fahrrad",
+    "es": "la bicicleta",
+    "lektion": "Transport",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Bus",
+    "es": "el autobús",
+    "lektion": "Transport",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Zug",
+    "es": "el tren",
+    "lektion": "Transport",
+    "nivel": "A1"
+  },
+  {
+    "de": "das Flugzeug",
+    "es": "el avión",
+    "lektion": "Transport",
+    "nivel": "A1"
+  },
+  {
+    "de": "fahren",
+    "es": "conducir",
+    "lektion": "Transport",
+    "nivel": "A1"
+  },
+  {
+    "de": "fliegen",
+    "es": "volar",
+    "lektion": "Transport",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Bahnhof",
+    "es": "la estación",
+    "lektion": "Transport",
+    "nivel": "A1"
+  },
+  {
+    "de": "der Arzt",
+    "es": "el médico",
+    "lektion": "Berufe",
+    "nivel": "A2"
+  },
+  {
+    "de": "die Ärztin",
+    "es": "la médica",
+    "lektion": "Berufe",
+    "nivel": "A2"
+  },
+  {
+    "de": "der Ingenieur",
+    "es": "el ingeniero",
+    "lektion": "Berufe",
+    "nivel": "A2"
+  },
+  {
+    "de": "der Koch",
+    "es": "el cocinero",
+    "lektion": "Berufe",
+    "nivel": "A2"
+  },
+  {
+    "de": "die Köchin",
+    "es": "la cocinera",
+    "lektion": "Berufe",
+    "nivel": "A2"
+  },
+  {
+    "de": "der Verkäufer",
+    "es": "el vendedor",
+    "lektion": "Berufe",
+    "nivel": "A2"
+  },
+  {
+    "de": "die Firma",
+    "es": "la empresa",
+    "lektion": "Berufe",
+    "nivel": "A2"
+  },
+  {
+    "de": "das Gehalt",
+    "es": "el sueldo",
+    "lektion": "Berufe",
+    "nivel": "A2"
+  },
+  {
+    "de": "die Bewerbung",
+    "es": "la solicitud",
+    "lektion": "Berufe",
+    "nivel": "A2"
+  },
+  {
+    "de": "arbeiten",
+    "es": "trabajar",
+    "lektion": "Berufe",
+    "nivel": "A2"
+  },
+  {
+    "de": "verdienen",
+    "es": "ganar dinero",
+    "lektion": "Berufe",
+    "nivel": "A2"
+  },
+  {
+    "de": "die Reise",
+    "es": "el viaje",
+    "lektion": "Reisen",
+    "nivel": "A2"
+  },
+  {
+    "de": "der Urlaub",
+    "es": "las vacaciones",
+    "lektion": "Reisen",
+    "nivel": "A2"
+  },
+  {
+    "de": "das Hotel",
+    "es": "el hotel",
+    "lektion": "Reisen",
+    "nivel": "A2"
+  },
+  {
+    "de": "der Flug",
+    "es": "el vuelo",
+    "lektion": "Reisen",
+    "nivel": "A2"
+  },
+  {
+    "de": "der Pass",
+    "es": "el pasaporte",
+    "lektion": "Reisen",
+    "nivel": "A2"
+  },
+  {
+    "de": "das Visum",
+    "es": "el visado",
+    "lektion": "Reisen",
+    "nivel": "A2"
+  },
+  {
+    "de": "die Fahrkarte",
+    "es": "el billete",
+    "lektion": "Reisen",
+    "nivel": "A2"
+  },
+  {
+    "de": "links",
+    "es": "izquierda",
+    "lektion": "Reisen",
+    "nivel": "A2"
+  },
+  {
+    "de": "rechts",
+    "es": "derecha",
+    "lektion": "Reisen",
+    "nivel": "A2"
+  },
+  {
+    "de": "geradeaus",
+    "es": "todo recto",
+    "lektion": "Reisen",
+    "nivel": "A2"
+  },
+  {
+    "de": "der Stadtplan",
+    "es": "el plano",
+    "lektion": "Reisen",
+    "nivel": "A2"
+  },
+  {
+    "de": "die Sehenswürdigkeit",
+    "es": "la atracción turística",
+    "lektion": "Reisen",
+    "nivel": "A2"
+  },
+  {
+    "de": "die Vorspeise",
+    "es": "el entrante",
+    "lektion": "Restaurant",
+    "nivel": "A2"
+  },
+  {
+    "de": "die Hauptspeise",
+    "es": "el plato principal",
+    "lektion": "Restaurant",
+    "nivel": "A2"
+  },
+  {
+    "de": "die Nachspeise",
+    "es": "el postre",
+    "lektion": "Restaurant",
+    "nivel": "A2"
+  },
+  {
+    "de": "bestellen",
+    "es": "pedir",
+    "lektion": "Restaurant",
+    "nivel": "A2"
+  },
+  {
+    "de": "die Rechnung",
+    "es": "la cuenta",
+    "lektion": "Restaurant",
+    "nivel": "A2"
+  },
+  {
+    "de": "das Trinkgeld",
+    "es": "la propina",
+    "lektion": "Restaurant",
+    "nivel": "A2"
+  },
+  {
+    "de": "der Kellner",
+    "es": "el mesero",
+    "lektion": "Restaurant",
+    "nivel": "A2"
+  },
+  {
+    "de": "süß",
+    "es": "dulce",
+    "lektion": "Restaurant",
+    "nivel": "A2"
+  },
+  {
+    "de": "salzig",
+    "es": "salado",
+    "lektion": "Restaurant",
+    "nivel": "A2"
+  },
+  {
+    "de": "scharf",
+    "es": "picante",
+    "lektion": "Restaurant",
+    "nivel": "A2"
+  },
+  {
+    "de": "der Geburtstag",
+    "es": "el cumpleaños",
+    "lektion": "Feste",
+    "nivel": "A2"
+  },
+  {
+    "de": "Weihnachten",
+    "es": "Navidad",
+    "lektion": "Feste",
+    "nivel": "A2"
+  },
+  {
+    "de": "Ostern",
+    "es": "Pascua",
+    "lektion": "Feste",
+    "nivel": "A2"
+  },
+  {
+    "de": "die Hochzeit",
+    "es": "la boda",
+    "lektion": "Feste",
+    "nivel": "A2"
+  },
+  {
+    "de": "das Geschenk",
+    "es": "el regalo",
+    "lektion": "Feste",
+    "nivel": "A2"
+  },
+  {
+    "de": "gratulieren",
+    "es": "felicitar",
+    "lektion": "Feste",
+    "nivel": "A2"
+  },
+  {
+    "de": "einladen",
+    "es": "invitar",
+    "lektion": "Feste",
+    "nivel": "A2"
+  },
+  {
+    "de": "feiern",
+    "es": "celebrar",
+    "lektion": "Feste",
+    "nivel": "A2"
+  },
+  {
+    "de": "das Handy",
+    "es": "el móvil",
+    "lektion": "Medien",
+    "nivel": "A2"
+  },
+  {
+    "de": "der Computer",
+    "es": "la computadora",
+    "lektion": "Medien",
+    "nivel": "A2"
+  },
+  {
+    "de": "das Internet",
+    "es": "internet",
+    "lektion": "Medien",
+    "nivel": "A2"
+  },
+  {
+    "de": "die E-Mail",
+    "es": "el correo electrónico",
+    "lektion": "Medien",
+    "nivel": "A2"
+  },
+  {
+    "de": "die App",
+    "es": "la aplicación",
+    "lektion": "Medien",
+    "nivel": "A2"
+  },
+  {
+    "de": "herunterladen",
+    "es": "descargar",
+    "lektion": "Medien",
+    "nivel": "A2"
+  },
+  {
+    "de": "die Nachricht",
+    "es": "el mensaje",
+    "lektion": "Medien",
+    "nivel": "A2"
+  },
+  {
+    "de": "der Film",
+    "es": "la película",
+    "lektion": "Medien",
+    "nivel": "A2"
+  },
+  {
+    "de": "die Zeitung",
+    "es": "el periódico",
+    "lektion": "Medien",
+    "nivel": "A2"
+  },
+  {
+    "de": "die Umwelt",
+    "es": "el medio ambiente",
+    "lektion": "Umwelt",
+    "nivel": "A2"
+  },
+  {
+    "de": "der Müll",
+    "es": "la basura",
+    "lektion": "Umwelt",
+    "nivel": "A2"
+  },
+  {
+    "de": "recyceln",
+    "es": "reciclar",
+    "lektion": "Umwelt",
+    "nivel": "A2"
+  },
+  {
+    "de": "sparen",
+    "es": "ahorrar",
+    "lektion": "Umwelt",
+    "nivel": "A2"
+  },
+  {
+    "de": "die Energie",
+    "es": "la energía",
+    "lektion": "Umwelt",
+    "nivel": "A2"
+  },
+  {
+    "de": "das Klima",
+    "es": "el clima",
+    "lektion": "Umwelt",
+    "nivel": "A2"
+  },
+  {
+    "de": "schützen",
+    "es": "proteger",
+    "lektion": "Umwelt",
+    "nivel": "A2"
+  },
+  {
+    "de": "glücklich",
+    "es": "feliz",
+    "lektion": "Gefühle",
+    "nivel": "A2"
+  },
+  {
+    "de": "traurig",
+    "es": "triste",
+    "lektion": "Gefühle",
+    "nivel": "A2"
+  },
+  {
+    "de": "müde",
+    "es": "cansado",
+    "lektion": "Gefühle",
+    "nivel": "A2"
+  },
+  {
+    "de": "aufgeregt",
+    "es": "emocionado",
+    "lektion": "Gefühle",
+    "nivel": "A2"
+  },
+  {
+    "de": "wütend",
+    "es": "enojado",
+    "lektion": "Gefühle",
+    "nivel": "A2"
+  },
+  {
+    "de": "Angst haben",
+    "es": "tener miedo",
+    "lektion": "Gefühle",
+    "nivel": "A2"
+  },
+  {
+    "de": "sich freuen",
+    "es": "alegrarse",
+    "lektion": "Gefühle",
+    "nivel": "A2"
+  },
+  {
+    "de": "die Meinung",
+    "es": "la opinión",
+    "lektion": "Gefühle",
+    "nivel": "A2"
+  },
+  {
+    "de": "Ich glaube",
+    "es": "Creo que",
+    "lektion": "Gefühle",
+    "nivel": "A2"
+  },
+  {
+    "de": "Ich finde",
+    "es": "Me parece",
+    "lektion": "Gefühle",
+    "nivel": "A2"
+  },
+  {
+    "de": "der Einkauf",
+    "es": "la compra",
+    "lektion": "Einkaufen",
+    "nivel": "A2"
+  },
+  {
+    "de": "kaufen",
+    "es": "comprar",
+    "lektion": "Einkaufen",
+    "nivel": "A2"
+  },
+  {
+    "de": "verkaufen",
+    "es": "vender",
+    "lektion": "Einkaufen",
+    "nivel": "A2"
+  },
+  {
+    "de": "billig",
+    "es": "barato",
+    "lektion": "Einkaufen",
+    "nivel": "A2"
+  },
+  {
+    "de": "teuer",
+    "es": "caro",
+    "lektion": "Einkaufen",
+    "nivel": "A2"
+  },
+  {
+    "de": "das Geld",
+    "es": "el dinero",
+    "lektion": "Einkaufen",
+    "nivel": "A2"
+  },
+  {
+    "de": "bezahlen",
+    "es": "pagar",
+    "lektion": "Einkaufen",
+    "nivel": "A2"
+  },
+  {
+    "de": "der Preis",
+    "es": "el precio",
+    "lektion": "Einkaufen",
+    "nivel": "A2"
+  },
+  {
+    "de": "die Größe",
+    "es": "la talla",
+    "lektion": "Einkaufen",
+    "nivel": "A2"
+  },
+  {
+    "de": "die U-Bahn",
+    "es": "el metro",
+    "lektion": "Verkehr",
+    "nivel": "A2"
+  },
+  {
+    "de": "die Straßenbahn",
+    "es": "el tranvía",
+    "lektion": "Verkehr",
+    "nivel": "A2"
+  },
+  {
+    "de": "der Stau",
+    "es": "el atasco",
+    "lektion": "Verkehr",
+    "nivel": "A2"
+  },
+  {
+    "de": "die Verspätung",
+    "es": "el retraso",
+    "lektion": "Verkehr",
+    "nivel": "A2"
+  },
+  {
+    "de": "pünktlich",
+    "es": "puntual",
+    "lektion": "Verkehr",
+    "nivel": "A2"
+  },
+  {
+    "de": "umsteigen",
+    "es": "hacer transbordo",
+    "lektion": "Verkehr",
+    "nivel": "A2"
+  }
+]

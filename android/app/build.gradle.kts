@@ -9,7 +9,7 @@ plugins {
 android {
     // Must match MainActivity.kt's package so AndroidManifest's ".MainActivity"
     // resolves correctly.
-    namespace = "com.worterabenteuer.worterabenteuer"
+    namespace = "com.feritobus.worterabenteuer"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -23,7 +23,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.worterabenteuer.worterabenteuer"
+        applicationId = "com.feritobus.worterabenteuer"
         // ML Kit Digital Ink + local_auth both require minSdk 24 (Android 7.0)
         minSdk = 24
         targetSdk = flutter.targetSdkVersion

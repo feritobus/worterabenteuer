@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Ink;
+import 'package:google_mlkit_digital_ink_recognition/google_mlkit_digital_ink_recognition.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_mlkit_digital_ink_recognition/google_mlkit_digital_ink_recognition.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/constants/app_constants.dart';
@@ -36,7 +36,7 @@ class _HandwritingScreenState extends ConsumerState<HandwritingScreen> {
   bool _modelDownloading = false;
 
   // Ink strokes for ML Kit
-  final List<InkStroke> _inkStrokes = [];
+  final List<Stroke> _inkStrokes = [];
   // Strokes for painting (list of paths)
   final List<List<Offset>> _paintStrokes = [];
   List<Offset> _activeStroke = [];
@@ -135,11 +135,11 @@ class _HandwritingScreenState extends ConsumerState<HandwritingScreen> {
   void _onPanEnd(DragEndDetails _) {
     if (_showResult || _recognizing || _activeStroke.isEmpty) return;
     final now = DateTime.now().millisecondsSinceEpoch;
-    final inkPoints = _activeStroke.asMap().entries.map((e) {
-      return InkPoint(point: e.value, t: now + e.key);
+    final inkPoints = _activeStroke.asMap().entries.map<StrokePoint>((e) {
+      return StrokePoint(x: e.value.dx, y: e.value.dy, t: DateTime.now().millisecondsSinceEpoch);
     }).toList();
     setState(() {
-      _inkStrokes.add(InkStroke(points: inkPoints));
+      _inkStrokes.add(Stroke()..points.addAll(inkPoints.toList()));
       _paintStrokes.add(List.from(_activeStroke));
       _activeStroke = [];
     });
@@ -160,7 +160,7 @@ class _HandwritingScreenState extends ConsumerState<HandwritingScreen> {
     if (_inkStrokes.isEmpty || _recognizing || !_modelReady) return;
     setState(() => _recognizing = true);
     try {
-      final candidates = await _recognizer.recognize(Ink(strokes: _inkStrokes));
+      final candidates = await _recognizer.recognize(Ink()..strokes = _inkStrokes);
       final recognized = candidates.isNotEmpty ? candidates.first.text : '';
       final child = ref.read(selectedChildProvider);
       final age = child?.age ?? 9;
