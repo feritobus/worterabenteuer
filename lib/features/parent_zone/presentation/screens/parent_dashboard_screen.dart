@@ -83,9 +83,15 @@ class ParentDashboardScreen extends ConsumerWidget {
               childAspectRatio: 1.3,
               children: [
                 _ActionCard(
-                  emoji: '📤',
-                  label: 'Importar vocabulario',
+                  emoji: '✏️',
+                  label: 'Crear lección',
                   color: AppColors.violet,
+                  onTap: () => context.push(AppRoutes.createLesson),
+                ),
+                _ActionCard(
+                  emoji: '📤',
+                  label: 'Importar foto',
+                  color: AppColors.sky,
                   onTap: () => context.push(AppRoutes.importVocab),
                 ),
                 _ActionCard(
@@ -97,13 +103,13 @@ class ParentDashboardScreen extends ConsumerWidget {
                 _ActionCard(
                   emoji: '📊',
                   label: 'Reporte semanal',
-                  color: AppColors.sky,
+                  color: AppColors.sun,
                   onTap: () => context.push(AppRoutes.weeklyReport),
                 ),
                 _ActionCard(
                   emoji: '➕',
                   label: 'Nuevo niño',
-                  color: AppColors.sun,
+                  color: AppColors.berry,
                   onTap: () => context.push(AppRoutes.createChild),
                 ),
               ]

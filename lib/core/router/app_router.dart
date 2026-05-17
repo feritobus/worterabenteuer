@@ -94,6 +94,13 @@ final routerProvider = Provider<GoRouter>((ref) {
           return OcrReviewScreen(ocrResult: result);
         },
       ),
+      GoRoute(
+        path: AppRoutes.createLesson,
+        builder: (context, state) => OcrReviewScreen(
+          ocrResult: OcrResult(words: [], sentences: [], confidence: 0),
+          isManual: true,
+        ),
+      ),
       // Placeholders para sprints futuros
       GoRoute(
         path: AppRoutes.approveScreenTime,
@@ -172,6 +179,7 @@ class AppRoutes {
   static const String editChild = '/parent/edit-child';
   static const String importVocab = '/parent/import';
   static const String ocrReview = '/parent/import/review';
+  static const String createLesson = '/parent/create-lesson';
   static const String approveScreenTime = '/parent/approve';
   static const String weeklyReport = '/parent/report';
   static const String lessons = '/lessons';

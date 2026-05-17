@@ -14,9 +14,14 @@ import '../../../lessons/domain/models/vocab_item.dart';
 import '../../../lessons/domain/models/lesson.dart';
 
 class OcrReviewScreen extends ConsumerStatefulWidget {
-  const OcrReviewScreen({super.key, required this.ocrResult});
+  const OcrReviewScreen({
+    super.key,
+    required this.ocrResult,
+    this.isManual = false,
+  });
 
   final OcrResult ocrResult;
+  final bool isManual;
 
   @override
   ConsumerState<OcrReviewScreen> createState() => _OcrReviewScreenState();
@@ -40,6 +45,11 @@ class _OcrReviewScreenState extends ConsumerState<OcrReviewScreen> {
         .map((p) => _EditablePair.from(p))
         .toList();
 
+    // Manual mode: start with one blank row so the parent can type immediately
+    if (widget.isManual && _words.isEmpty) {
+      _words.add(_EditablePair.empty());
+    }
+
     // Auto-title
     final now = DateTime.now();
     _titleController.text =
@@ -62,7 +72,7 @@ class _OcrReviewScreenState extends ConsumerState<OcrReviewScreen> {
     return Scaffold(
       backgroundColor: AppColors.pale,
       appBar: AppBar(
-        title: const Text('Revisar vocabulario'),
+        title: Text(widget.isManual ? 'Crear lección' : 'Revisar vocabulario'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_rounded),
           onPressed: () => context.pop(),
@@ -70,8 +80,8 @@ class _OcrReviewScreenState extends ConsumerState<OcrReviewScreen> {
       ),
       body: Column(
         children: [
-          // Confianza del OCR
-          if (widget.ocrResult.confidence > 0)
+          // Confianza del OCR (solo cuando no es entrada manual)
+          if (!widget.isManual && widget.ocrResult.confidence > 0)
             _ConfidenceBanner(confidence: widget.ocrResult.confidence),
 
           Expanded(

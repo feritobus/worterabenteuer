@@ -8,6 +8,7 @@ import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/services/firestore_service.dart';
+import '../../../../core/services/tts_service.dart';
 import '../../../lessons/presentation/providers/lesson_providers.dart';
 import '../../../lessons/domain/models/vocab_item.dart';
 import '../../../study/domain/models/session_result.dart';
@@ -476,6 +477,7 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen>
   Widget _buildResultBanner(VocabItem item) {
     final correct = _isCorrect == true;
     final color = correct ? AppColors.grass : AppColors.berry;
+    final tts = ref.read(ttsServiceProvider);
 
     return Container(
       width: double.infinity,
@@ -515,6 +517,16 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen>
               style: AppTextStyles.label.copyWith(color: AppColors.sun),
             ),
           ],
+          const SizedBox(height: 8),
+          TextButton.icon(
+            onPressed: () => tts.speakGerman(item.german),
+            icon: const Icon(Icons.volume_up_rounded, size: 18),
+            label: const Text('Escuchar pronunciación'),
+            style: TextButton.styleFrom(
+              foregroundColor: color,
+              textStyle: AppTextStyles.caption,
+            ),
+          ),
         ],
       ),
     ).animate().fadeIn().slideY(begin: 0.2, end: 0);
