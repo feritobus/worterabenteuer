@@ -34,8 +34,27 @@ class LessonListScreen extends ConsumerWidget {
           onPressed: () => context.pop(),
         ),
         actions: [
-          // Stats rápidos
-          if (child != null)
+          if (child != null) ...[
+            // Rewards shortcut
+            GestureDetector(
+              onTap: () => context.push(AppRoutes.rewards),
+              child: Container(
+                margin: const EdgeInsets.only(right: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                decoration: BoxDecoration(
+                  color: AppColors.grass.withValues(alpha: 0.12),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Text(
+                  '🎮 ${child.earnedScreenTimeApproved}min',
+                  style: AppTextStyles.label.copyWith(
+                    color: AppColors.grass,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ),
+            ),
+            // Points chip
             Padding(
               padding: const EdgeInsets.only(right: 16),
               child: Center(
@@ -56,6 +75,7 @@ class LessonListScreen extends ConsumerWidget {
                 ),
               ),
             ),
+          ],
         ],
       ),
       body: Column(

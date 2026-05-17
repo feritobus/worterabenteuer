@@ -1,73 +1,156 @@
-# WörterAbenteuer — Configuración Inicial
+# WörterAbenteuer — Setup & Deploy Guide
 
-## Requisitos previos
-- Flutter 3.16+ (tienes 3.41.9 ✓)
-- Cuenta de Google (para Firebase)
-- Cuenta de Apple Developer (para Sign in with Apple en iOS)
+## Prerequisites
 
-## Paso 1 — Crear proyecto Firebase
+- Flutter 3.41.9+
+- Firebase CLI (`npm install -g firebase-tools`)
+- Xcode 15+ (iOS builds)
+- Android Studio / SDK (Android builds)
+- A Firebase project with **Authentication**, **Firestore**, and **Storage** enabled
 
-1. Ve a https://console.firebase.google.com
-2. Crea un nuevo proyecto: **worterabenteuer**
-3. Habilita los siguientes servicios:
-   - Authentication → Google y Apple
-   - Firestore Database → modo producción
-   - Storage
-   - Functions
-   - Analytics
-   - Crashlytics
+---
 
-## Paso 2 — Instalar FlutterFire CLI
+## 1. Clone the repo
+
+```bash
+git clone https://github.com/feritobus/worterabenteuer.git
+cd worterabenteuer
+flutter pub get
+dart run build_runner build --delete-conflicting-outputs
+```
+
+---
+
+## 2. Firebase configuration
+
+### 2a. Install FlutterFire CLI
 
 ```bash
 dart pub global activate flutterfire_cli
 ```
 
-## Paso 3 — Configurar Firebase en el proyecto
+### 2b. Log in and configure
 
 ```bash
-cd worterabenteuer
+firebase login
 flutterfire configure
 ```
 
-Esto reemplaza automáticamente `lib/firebase_options.dart` con los valores reales.
+Select your Firebase project when prompted. This generates:
+- `lib/firebase_options.dart` ← **never commit this file**
+- `android/app/google-services.json` ← **never commit**
+- `ios/Runner/GoogleService-Info.plist` ← **never commit**
 
-## Paso 4 — Instalar dependencias
+Make sure those files are in `.gitignore`.
+
+### 2c. Deploy Firestore rules and indexes
 
 ```bash
-flutter pub get
+firebase deploy --only firestore:rules
+firebase deploy --only firestore:indexes
 ```
 
-## Paso 5 — Correr la app
+---
+
+## 3. Android build
+
+### 3a. Signing (release)
+
+Create a keystore:
+```bash
+keytool -genkey -v -keystore ~/worterabenteuer-release.jks \
+  -keyalg RSA -keysize 2048 -validity 10000 \
+  -alias worterabenteuer
+```
+
+Create `android/key.properties` (do NOT commit):
+```
+storePassword=<your-store-password>
+keyPassword=<your-key-password>
+keyAlias=worterabenteuer
+storeFile=<path-to>/worterabenteuer-release.jks
+```
+
+Update `android/app/build.gradle.kts` release block to use `signingConfigs.getByName("release")` (currently wired to `debug` for development convenience).
+
+### 3b. Build APK / AAB
 
 ```bash
-# Android
-flutter run -d android
+# Debug APK
+flutter build apk --debug
 
-# iOS (requiere Mac con Xcode)
-flutter run -d ios
+# Release APK (local testing)
+flutter build apk --release
+
+# Release AAB (Play Store)
+flutter build appbundle --release
 ```
 
-## Notas importantes
+Minimum SDK: **24** (Android 7.0) — required by ML Kit Digital Ink + local_auth.
 
-- **Sign in with Apple** solo funciona en dispositivos iOS reales o simulador.
-  En Android, solo aparece el botón de Google.
-- Nunca subas `firebase_options.dart` con valores reales a un repo público.
-- Las API keys de Cloud Speech y Anthropic van en **Cloud Functions**,
-  nunca en el código cliente.
+---
 
-## Estructura de la app
+## 4. iOS build
 
+### 4a. Bundle ID
+
+Open `ios/Runner.xcworkspace` in Xcode.  
+Set **Bundle Identifier** to `com.worterabenteuer.app` (or your team's ID).
+
+### 4b. Entitlements
+
+Ensure these capabilities are enabled in Xcode:
+- **Sign in with Apple** (for `sign_in_with_apple` package)
+- **LocalAuthentication / FaceID** (for `local_auth` package)
+- **Microphone** (already in Info.plist)
+
+### 4c. Build
+
+```bash
+flutter build ios --release
 ```
-Sprint 1 ✅ — Foundation (login, diseño)
-Sprint 2 ⬜ — Perfiles de niños
-Sprint 3 ⬜ — Importar vocabulario con OCR
-Sprint 4 ⬜ — Flash Cards y Teclado
-Sprint 5 ⬜ — Escritura a mano
-Sprint 6 ⬜ — Voz + IA
-Sprint 7 ⬜ — Rondas y lógica
-Sprint 8 ⬜ — Tiempo y recompensas
-Sprint 9 ⬜ — Reportes de padres
-Sprint 10 ⬜ — Pulido y testing
-Sprint 11 ⬜ — Publicación
+
+Open the generated Xcode project, set your Team, and archive via **Product → Archive**.
+
+---
+
+## 5. Cloud Functions (API keys)
+
+The Anthropic API key (Claude Haiku) and Google Speech-to-Text API key **must** live in Cloud Functions environment — never in the client app.
+
+```bash
+cd functions
+firebase functions:secrets:set ANTHROPIC_KEY
+firebase functions:secrets:set GOOGLE_SPEECH_KEY
+firebase deploy --only functions
 ```
+
+---
+
+## 6. Sprint completion status
+
+| Sprint | Feature | Status |
+|--------|---------|--------|
+| 1 | Foundation — routing, auth, design system | ✅ |
+| 2 | Family management — children, parent PIN | ✅ |
+| 3 | Vocabulary import — OCR, manual entry | ✅ |
+| 4 | Lesson list + study modes (flashcard, keyboard) | ✅ |
+| 5 | Handwriting study mode (ML Kit Digital Ink) | ✅ |
+| 6 | Voice study mode (speech_to_text de_DE) | ✅ |
+| 7 | Screen time reward system | ✅ |
+| 8 | Session tracking + Weekly Report | ✅ |
+| 9 | Lesson progression + Extra Vocab packs | ✅ |
+| 10 | Polish — streak, Firestore rules, onboarding | ✅ |
+| 11 | Firebase deploy + build config | ✅ |
+
+---
+
+## 7. Architecture notes
+
+- **State management**: Riverpod (providers in `lib/features/*/presentation/providers/`)
+- **Navigation**: go_router with auth guard (`lib/core/router/app_router.dart`)
+- **Local storage**: Hive for models; flutter_secure_storage for PIN + onboarding flag
+- **Firestore structure**: `families/{uid}/children/{cid}/sessions/{sid}`, `families/{uid}/lessons/{lid}/vocab_items/{vid}`
+- **Offline support**: Firestore offline cache — writes are queued when offline and synced when connection returns
+- **Word mastery**: handwriting-only, no errors in one pass → `dominated = true`
+- **Screen time ratio**: 1 min study = 2.5 min screen time (`AppConstants.screenTimeRatio`)

@@ -1,19 +1,69 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/router/app_router.dart';
+import '../../../../core/services/firestore_service.dart';
+import '../../../../core/constants/app_constants.dart';
 import '../../../../shared/widgets/kid_button.dart';
+import '../../../lessons/presentation/providers/lesson_providers.dart';
 import '../../../study/domain/models/session_result.dart';
+import '../../../study/domain/models/study_session.dart';
 
-class LessonCompleteScreen extends StatelessWidget {
+class LessonCompleteScreen extends ConsumerStatefulWidget {
   const LessonCompleteScreen({super.key, required this.result});
 
   final SessionResult result;
 
   @override
+  ConsumerState<LessonCompleteScreen> createState() =>
+      _LessonCompleteScreenState();
+}
+
+class _LessonCompleteScreenState extends ConsumerState<LessonCompleteScreen> {
+  bool _sessionRecorded = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _recordSession();
+  }
+
+  Future<void> _recordSession() async {
+    if (_sessionRecorded) return;
+    _sessionRecorded = true;
+
+    final child = ref.read(selectedChildProvider);
+    final lesson = ref.read(selectedLessonProvider);
+    if (child == null || lesson == null) return;
+
+    final session = StudySession.create(
+      childId: child.id,
+      lessonId: lesson.id,
+      lessonTitle: widget.result.lessonTitle,
+      mode: widget.result.mode,
+      pointsEarned: widget.result.pointsEarned,
+      wordsAttempted: widget.result.wordsAttempted,
+      wordsCorrect: widget.result.wordsCorrect,
+    );
+
+    try {
+      // recordSession also handles streak + effectiveTime updates
+      await ref.read(firestoreServiceProvider).recordSession(session);
+      await ref.read(firestoreServiceProvider).updateScreenTimePending(
+            child.id,
+            session.estimatedMinutes,
+          );
+    } catch (_) {
+      // Network error: session will sync when back online via Firestore offline cache
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final result = widget.result;
     final pct = (result.accuracy * 100).round();
 
     return Scaffold(
@@ -106,7 +156,32 @@ class LessonCompleteScreen extends StatelessWidget {
                   ),
                 ).animate().fadeIn(delay: 500.ms, duration: 400.ms),
 
-                const SizedBox(height: 48),
+                const SizedBox(height: 16),
+
+                // Screen time earned hint
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  decoration: BoxDecoration(
+                    color: AppColors.cloud.withValues(alpha: 0.15),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('🎮', style: TextStyle(fontSize: 20)),
+                      const SizedBox(width: 8),
+                      Text(
+                        '+${_estimateMinutes(result)} min de crédito ganados',
+                        style: AppTextStyles.label.copyWith(
+                          color: AppColors.cloud,
+                        ),
+                      ),
+                    ],
+                  ),
+                ).animate().fadeIn(delay: 600.ms),
+
+                const SizedBox(height: 32),
 
                 // Botones
                 KidButton(
@@ -133,6 +208,17 @@ class LessonCompleteScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  int _estimateMinutes(SessionResult r) {
+    const secsPerWord = {
+      'flashcard': 12,
+      'keyboard': 25,
+      'handwriting': 40,
+      'voice': 20,
+    };
+    final secs = (secsPerWord[r.mode] ?? 20) * r.wordsAttempted;
+    return (secs / 60).ceil().clamp(1, 60);
   }
 }
 

@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WörterAbenteuer — Esquema v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sky: #29B6F6;
+    --sun: #FFA726;
+    --grass: #4CAF50;
+    --berry: #EF5350;
+    --violet: #7C4DFF;
+    --mint: #00BCD4;
+    --peach: #FF7043;
+    --gold: #FFD600;
+    --ink: #0D1B2A;
+    --pale: #F0F4FF;
+    --cloud: #FFFFFF;
+    --shadow: rgba(13,27,42,0.09);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: #E8EEF9;
+    background-image: radial-gradient(circle at 20% 20%, #dce8ff 0%, transparent 50%),
+                      radial-gradient(circle at 80% 80%, #ffe8d6 0%, transparent 50%);
+    color: var(--ink);
+    padding: 40px 20px 60px;
+  }
+
+  /* ── HEADER ── */
+  .app-header {
+    text-align: center;
+    margin-bottom: 52px;
+  }
+  .app-logo {
+    font-family: 'Baloo 2', cursive;
+    font-size: 3rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #7C4DFF 0%, #29B6F6 60%, #00BCD4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .app-version {
+    display: inline-block;
+    background: var(--violet);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 100px;
+    letter-spacing: 0.1em;
+    margin-top: 4px;
+    text-transform: uppercase;
+  }
+  .app-subtitle {
+    font-size: 0.9rem;
+    color: #6b7280;
+    margin-top: 8px;
+    font-weight: 600;
+  }
+
+  /* ── FLOW ── */
+  .flow { max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 0; }
+
+  /* ── PHASE BLOCK ── */
+  .phase {
+    margin-bottom: 8px;
+  }
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding-left: 4px;
+  }
+  .phase-num {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900;
+    font-size: 0.9rem;
+    color: white;
+    flex-shrink: 0;
+  }
+  .phase-title {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--ink);
+  }
+  .phase-sub {
+    font-size: 0.72rem;
+    color: #9ca3af;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* ── CARD GRID ── */
+  .card-grid {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+  .card-grid.cols-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+  .card-grid.cols-3 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .card-grid.cols-4 { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--cloud);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 3px 16px var(--shadow);
+    position: relative;
+    overflow: hidden;
+  }
+  .card-accent {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    border-radius: 20px 20px 0 0;
+  }
+  .card-tag {
+    font-size: 0.6rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: #9ca3af;
+    margin-bottom: 6px;
+  }
+  .card-title {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.1rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+
+  /* ── ARROW ── */
+  .flow-arrow {
+    text-align: center;
+    padding: 6px 0 14px;
+    color: #c4cad8;
+    font-size: 1.6rem;
+    line-height: 1;
+  }
+
+  /* ── UI ATOMS ── */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 12px;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+  .pill.violet { background: var(--violet); color: white; }
+  .pill.sky    { background: var(--sky); color: white; }
+  .pill.grass  { background: var(--grass); color: white; }
+  .pill.berry  { background: var(--berry); color: white; }
+  .pill.sun    { background: var(--sun); color: white; }
+  .pill.mint   { background: var(--mint); color: white; }
+  .pill.dark   { background: var(--ink); color: white; }
+  .pill.ghost  { background: transparent; border: 2px solid #E5E7EB; color: #6b7280; }
+  .pill.gold   { background: var(--gold); color: var(--ink); }
+
+  .avatar-row { display: flex; gap: 10px; flex-wrap: wrap; margin: 10px 0; }
+  .avatar-wrap { text-align: center; }
+  .avatar {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  }
+  .avatar-name { font-size: 0.6rem; font-weight: 800; color: #6b7280; margin-top: 3px; }
+
+  .list-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 7px 0;
+    border-bottom: 1px solid #F3F4F6;
+    font-size: 0.78rem;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+  .list-item:last-child { border-bottom: none; }
+  .list-icon { flex-shrink: 0; margin-top: 1px; }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 0.68rem;
+    font-weight: 900;
+  }
+  .badge.high  { background: #FEE2E2; color: #b91c1c; }
+  .badge.mid   { background: #DCFCE7; color: #15803d; }
+  .badge.low   { background: #F3F4F6; color: #6b7280; }
+  .badge.blue  { background: #DBEAFE; color: #1d4ed8; }
+  .badge.gold  { background: #FEF9C3; color: #854d0e; }
+
+  .mini-input {
+    background: #F9FAFB;
+    border: 2px solid #E5E7EB;
+    border-radius: 10px;
+    padding: 7px 11px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #9ca3af;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 8px;
+  }
+
+  .progress-bar {
+    background: #E5E7EB;
+    border-radius: 100px;
+    height: 6px;
+    overflow: hidden;
+    margin-top: 4px;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 100px;
+  }
+
+  /* ── LESSON FLOW ── */
+  .lesson-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .lesson-step {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #F9FAFB;
+    border-radius: 10px;
+    padding: 9px 12px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    border-left: 3px solid transparent;
+  }
+  .lesson-step.active { background: #EDE7FF; border-left-color: var(--violet); }
+  .lesson-step.done   { background: #DCFCE7; border-left-color: var(--grass); }
+  .lesson-step.locked { background: #F9FAFB; border-left-color: #E5E7EB; color: #9ca3af; }
+  .step-num {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--violet);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 900;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .step-num.done  { background: var(--grass); }
+  .step-num.locked{ background: #D1D5DB; }
+
+  /* ── STUDY MODE CARDS ── */
+  .mode-card {
+    border-radius: 14px;
+    padding: 14px;
+    margin-bottom: 10px;
+    border: 2px solid transparent;
+  }
+  .mode-card.voice  { background: #E8F5E9; border-color: #81C784; }
+  .mode-card.hand   { background: #E3F2FD; border-color: #64B5F6; }
+  .mode-card.type   { background: #F3E5F5; border-color: #CE93D8; }
+  .mode-card.flash  { background: #FFF8E1; border-color: #FFD54F; }
+
+  .mode-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+  .mode-title  { font-weight: 900; font-size: 0.88rem; display: flex; align-items: center; gap: 6px; }
+  .mode-desc   { font-size: 0.71rem; color: #4b5563; font-weight: 600; line-height: 1.45; }
+
+  /* ── REWARD TABLE ── */
+  .pts-table { border-radius: 14px; overflow: hidden; border: 2px solid #E5E7EB; }
+  .pts-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 14px;
+    border-bottom: 1px solid #F3F4F6;
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+  .pts-row:last-child { border-bottom: none; }
+  .pts-row.header { background: #F9FAFB; font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.1em; color: #9ca3af; }
+  .pts-mode { flex: 1; }
+
+  /* ── IMPORT FLOW ── */
+  .import-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid #F3F4F6;
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+  .import-step:last-child { border-bottom: none; }
+  .import-num {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--violet), var(--sky));
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 900;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ── DARK CARD ── */
+  .card.dark-card {
+    background: var(--ink);
+    color: white;
+  }
+  .card.dark-card .card-tag { color: #6b7280; }
+  .card.dark-card .card-title { color: white; }
+  .card.dark-card .list-item { border-color: rgba(255,255,255,0.08); color: #d1d5db; }
+
+  /* ── REWARD CHIPS ── */
+  .reward-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0; }
+  .reward-chip {
+    background: #FFFBEB;
+    border: 2px solid #FDE68A;
+    border-radius: 12px;
+    padding: 10px;
+    text-align: center;
+  }
+  .reward-chip .icon { font-size: 1.5rem; }
+  .reward-chip .val  { font-weight: 900; font-size: 1rem; margin-top: 2px; }
+  .reward-chip .lbl  { font-size: 0.62rem; color: #9ca3af; font-weight: 700; }
+
+  /* ── TECH PILLS ROW ── */
+  .tech-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+  .tech-pill {
+    background: #F3F4F6;
+    border: 1.5px solid #E5E7EB;
+    border-radius: 8px;
+    padding: 4px 9px;
+    font-size: 0.66rem;
+    font-weight: 800;
+    color: var(--ink);
+  }
+
+  /* ── UNLOCK VISUAL ── */
+  .unlock-flow {
+    background: linear-gradient(135deg, #EDE7FF, #E0F2FE);
+    border-radius: 14px;
+    padding: 14px;
+    margin-top: 10px;
+  }
+  .unlock-step {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 5px 0;
+  }
+  .unlock-arrow { color: #9ca3af; font-size: 0.8rem; padding: 2px 0; padding-left: 14px; }
+
+  /* ── SOURCE CARDS ── */
+  .source-card {
+    background: #F9FAFB;
+    border: 2px solid #E5E7EB;
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 8px;
+  }
+  .source-card:last-child { margin-bottom: 0; }
+  .source-title { font-weight: 900; font-size: 0.85rem; margin-bottom: 4px; display: flex; align-items: center; gap: 7px; }
+  .source-desc  { font-size: 0.71rem; color: #6b7280; font-weight: 600; line-height: 1.4; }
+
+  /* ── SECTION DIVIDER ── */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 28px 0 20px;
+  }
+  .section-divider::before,
+  .section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #D1D5DB;
+  }
+  .section-divider-label {
+    font-size: 0.65rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #9ca3af;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 680px) {
+    .card-grid { grid-template-columns: 1fr; }
+    .app-logo { font-size: 2.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app-header">
+  <div class="app-logo">🇩🇪 WörterAbenteuer</div>
+  <div><span class="app-version">Esquema v2 · Actualizado</span></div>
+  <div class="app-subtitle">Arquitectura completa · App de vocabulario alemán para niños (7–12 años)</div>
+</div>
+
+<div class="flow">
+
+  <!-- ════════════════════════════════
+       FASE 1 · PANTALLA DE INICIO
+  ════════════════════════════════ -->
+  <div class="phase">
+    <div class="phase-header">
+      <div class="phase-num" style="background:linear-gradient(135deg,#7C4DFF,#29B6F6);">1</div>
+      <div>
+        <div class="phase-sub">Pantalla 1</div>
+        <div class="phase-title">🏠 Inicio · Selección de niño</div>
+      </div>
+    </div>
+
+    <div class="card-grid cols-2">
+
+      <!-- ZONA NIÑO -->
+      <div class="card">
+        <div class="card-accent" style="background:linear-gradient(90deg,#7C4DFF,#29B6F6);"></div>
+        <div class="card-tag">Zona principal</div>
+        <div class="card-title">👋 ¿Quién soy hoy?</div>
+        <div class="mini-input">✏️ Escribe tu nombre…</div>
+        <div style="font-size:0.7rem;color:#9ca3af;font-weight:700;margin-bottom:8px;">— o elige tu personaje —</div>
+        <div class="avatar-row">
+          <div class="avatar-wrap"><div class="avatar" style="background:#FDE68A;">🦊</div><div class="avatar-name">Mia</div></div>
+          <div class="avatar-wrap"><div class="avatar" style="background:#BBF7D0;">🐸</div><div class="avatar-name">Leo</div></div>
+          <div class="avatar-wrap"><div class="avatar" style="background:#BFDBFE;">🐧</div><div class="avatar-name">Sara</div></div>
+          <div class="avatar-wrap"><div class="avatar" style="background:#FED7AA;">➕</div><div class="avatar-name">Nuevo</div></div>
+        </div>
+        <div style="margin-top:12px;">
+          <span class="pill violet">🚀 ¡Entrar!</span>
+        </div>
+        <div class="tech-row">
+          <div class="tech-pill">👤 Multi-perfil por familia</div>
+          <div class="tech-pill">🔢 PIN rápido opcional</div>
+        </div>
+      </div>
+
+      <!-- ZONA PADRES -->
+      <div class="card dark-card">
+        <div class="card-accent" style="background:linear-gradient(90deg,#1A1A2E,#7C4DFF);"></div>
+        <div class="card-tag">Esquina inferior · acceso discreto</div>
+        <div class="card-title">🔐 Zona de Padres</div>
+        <div class="list-item"><span class="list-icon">📷</span> Reconocimiento de foto del padre/madre para acceso</div>
+        <div class="list-item"><span class="list-icon">📤</span> Importar vocabulario semanal (screenshot Antón / foto hoja)</div>
+        <div class="list-item"><span class="list-icon">📚</span> Asignar lecciones a cada hijo</div>
+        <div class="list-item"><span class="list-icon">📊</span> Ver avance detallado por hijo y por palabra</div>
+        <div class="list-item"><span class="list-icon">⏱️</span> Reporte semanal de tiempo efectivo de estudio</div>
+        <div class="list-item"><span class="list-icon">🎮</span> Aprobar tiempo libre ganado (screen time)</div>
+        <div class="list-item"><span class="list-icon">➕</span> Agregar / editar perfiles de niños</div>
+        <div style="margin-top:12px;">
+          <span class="pill ghost">🔒 Acceso para padres</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="flow-arrow">↓</div>
+
+  <!-- ════════════════════════════════
+       FASE 2 · IMPORTAR VOCABULARIO (PADRES)
+  ════════════════════════════════ -->
+  <div class="phase">
+    <div class="phase-header">
+      <div class="phase-num" style="background:linear-gradient(135deg,#FF7043,#FFA726);">2</div>
+      <div>
+        <div class="phase-sub">Flujo de padres</div>
+        <div class="phase-title">📤 Importar Vocabulario Semanal</div>
+      </div>
+    </div>
+
+    <div class="card-grid cols-3">
+
+      <!-- FUENTE 1: ANTÓN -->
+      <div class="card">
+        <div class="card-accent" style="background:linear-gradient(90deg,#4CAF50,#00BCD4);"></div>
+        <div class="card-tag">Fuente 1 · Dabei! / Antón</div>
+        <div class="card-title">📱 Screenshot de Antón</div>
+        <div class="import-step"><div class="import-num">1</div><div>Maestro comparte link de lista en Antón (ej. <em>anton.app/listas/LL-XXXX</em>)</div></div>
+        <div class="import-step"><div class="import-num">2</div><div>Padre abre la lista y hace <strong>screenshot</strong> de la pantalla</div></div>
+        <div class="import-step"><div class="import-num">3</div><div>Sube el screenshot a la app</div></div>
+        <div class="import-step"><div class="import-num">4</div><div>OCR lee las dos columnas limpias (Alemán | Español)</div></div>
+        <div class="import-step"><div class="import-num">5</div><div>Padre revisa y confirma → asigna al hijo</div></div>
+        <div class="tech-row">
+          <div class="tech-pill">🤖 OCR digital</div>
+          <div class="tech-pill">📋 2 listas: palabras + Sätze</div>
+        </div>
+      </div>
+
+      <!-- FUENTE 2: HOJA IMPRESA -->
+      <div class="card">
+        <div class="card-accent" style="background:linear-gradient(90deg,#FF7043,#FFA726);"></div>
+        <div class="card-tag">Fuente 2 · Paul, Lisa & Co · hojas sueltas</div>
+        <div class="card-title">📄 Foto de Hoja Impresa</div>
+        <div class="import-step"><div class="import-num">1</div><div>Padre fotografía la hoja impresa del libro</div></div>
+        <div class="import-step"><div class="import-num">2</div><div>OCR detecta columnas: Deutsch | Satz | Spanisch</div></div>
+        <div class="import-step"><div class="import-num">3</div><div>Separa automáticamente palabras vs oraciones (por longitud)</div></div>
+        <div class="import-step"><div class="import-num">4</div><div>Descarta columnas auxiliares (Bild, notas gramaticales opcionales)</div></div>
+        <div class="import-step"><div class="import-num">5</div><div>Padre revisa, corrige si hay error y asigna al hijo</div></div>
+        <div class="tech-row">
+          <div class="tech-pill">📸 OCR de impresión</div>
+          <div class="tech-pill">🏫 Estructura multi-columna</div>
+        </div>
+      </div>
+
+      <!-- HISTORIAL FAMILIAR -->
+      <div class="card">
+        <div class="card-accent" style="background:linear-gradient(90deg,#7C4DFF,#CE93D8);"></div>
+        <div class="card-tag">Biblioteca privada · se construye con el tiempo</div>
+        <div class="card-title">📚 Historial de la Familia</div>
+        <div style="font-size:0.78rem;font-weight:600;color:#6b7280;margin-bottom:10px;">Cada lección cargada queda guardada. El hermano menor la hereda automáticamente.</div>
+        <div class="source-card">
+          <div class="source-title">📗 Paul, Lisa & Co A1 <span class="badge blue">1° – 4°</span></div>
+          <div class="source-desc">Lecciones de hojas impresas acumuladas semana a semana</div>
+        </div>
+        <div class="source-card">
+          <div class="source-title">📘 Dabei! A2 <span class="badge blue">5° – 6°</span></div>
+          <div class="source-desc">Listas de Antón importadas y guardadas por lección</div>
+        </div>
+        <div class="source-card">
+          <div class="source-title">📝 Hojas del maestro <span class="badge gold">Personalizadas</span></div>
+          <div class="source-desc">Lecciones extra que el maestro prepara aparte del libro</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="flow-arrow">↓</div>
+
+  <!-- ════════════════════════════════
+       FASE 3 · SELECCIÓN DE LECCIÓN (NIÑO)
+  ════════════════════════════════ -->
+  <div class="phase">
+    <div class="phase-header">
+      <div class="phase-num" style="background:linear-gradient(135deg,#FFA726,#FFD600);">3</div>
+      <div>
+        <div class="phase-sub">Pantalla del niño · tras entrar</div>
+        <div class="phase-title">📚 Selección de Lección</div>
+      </div>
+    </div>
+
+    <div class="card-grid cols-2">
+
+      <div class="card">
+        <div class="card-accent" style="background:linear-gradient(90deg,#FFA726,#FFD600);"></div>
+        <div class="card-tag">Vista del niño</div>
+        <div class="card-title">¿Qué aprendemos hoy? 🌟</div>
+
+        <!-- Lección asignada -->
+        <div style="background:#EDE7FF;border-radius:12px;padding:12px;margin-bottom:8px;border-left:4px solid var(--violet);">
+          <div style="font-size:0.65rem;font-weight:900;color:var(--violet);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px;">⭐ Asignada por mamá</div>
+          <div style="font-weight:900;font-size:0.9rem;">🧑‍💼 Berufe · Los oficios</div>
+          <div style="font-size:0.7rem;color:#6b7280;font-weight:600;margin:4px 0;">Dabei! A2 · 24 palabras + 12 oraciones</div>
+          <div class="progress-bar"><div class="progress-fill" style="width:0%;background:var(--violet);"></div></div>
+          <div style="margin-top:8px;display:flex;gap:6px;align-items:center;">
+            <span class="pill violet" style="font-size:0.7rem;padding:4px 10px;">▶ Empezar</span>
+            <span style="font-size:0.68rem;color:#9ca3af;font-weight:600;">0 / 24 dominadas</span>
+          </div>
+        </div>
+
+        <!-- Lección en progreso -->
+        <div style="background:#E8F5E9;border-radius:12px;padding:12px;margin-bottom:8px;border-left:4px solid var(--grass);">
+          <div style="font-weight:900;font-size:0.9rem;">🏖️ Ferien · Las vacaciones</div>
+          <div style="font-size:0.7rem;color:#6b7280;font-weight:600;margin:4px 0;">Paul, Lisa & Co A1 · Lección 10</div>
+          <div class="progress-bar"><div class="progress-fill" style="width:58%;background:var(--grass);"></div></div>
+          <div style="margin-top:8px;display:flex;gap:6px;align-items:center;">
+            <span class="pill grass" style="font-size:0.7rem;padding:4px 10px;">▶ Continuar</span>
+            <span style="font-size:0.68rem;color:#9ca3af;font-weight:600;">7 / 12 dominadas</span>
+          </div>
+        </div>
+
+        <!-- Lección completada + extra desbloqueado -->
+        <div style="background:#F9FAFB;border-radius:12px;padding:12px;border-left:4px solid #E5E7EB;">
+          <div style="font-weight:900;font-size:0.9rem;color:#9ca3af;">🐾 Tiere · Los animales <span class="badge mid">✓ Completada</span></div>
+          <div class="progress-bar" style="margin-top:6px;"><div class="progress-fill" style="width:100%;background:var(--grass);"></div></div>
+          <div style="margin-top:6px;">
+            <span class="pill gold" style="font-size:0.68rem;padding:3px 9px;">🌟 Vocabulario extra desbloqueado</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- LÓGICA DE DESBLOQUEO -->
+      <div class="card">
+        <div class="card-accent" style="background:linear-gradient(90deg,#FFD600,#FF7043);"></div>
+        <div class="card-tag">Lógica de desbloqueo · vocabulario extra</div>
+        <div class="card-title">🔓 ¿Cuándo se desbloquea más?</div>
+
+        <div class="unlock-flow">
+          <div class="unlock-step">🃏 <strong>Ronda principal</strong> — practica todas las palabras</div>
+          <div class="unlock-arrow">↓</div>
+          <div class="unlock-step">🔄 <strong>Ronda de repaso</strong> — solo las que falló al final</div>
+          <div class="unlock-arrow">↓</div>
+          <div class="unlock-step">🏆 <strong>Ronda perfecta</strong> — repaso sin ningún error</div>
+          <div class="unlock-arrow">↓</div>
+          <div class="unlock-step">🌟 <strong>Vocabulario extra desbloqueado</strong> del mismo tema</div>
+        </div>
+
+        <div style="margin-top:14px;">
+          <div style="font-size:0.72rem;font-weight:900;color:var(--ink);margin-bottom:8px;">✍️ Definición de "palabra dominada":</div>
+          <div class="list-item"><span class="list-icon">✅</span> <div>Escrita a mano <strong>sin errores en una sola pasada</strong> → oficialmente dominada</div></div>
+          <div class="list-item"><span class="list-icon">⭐</span> <div>Hablada correctamente → <strong>bono extra</strong> sobre palabra ya dominada</div></div>
+          <div class="list-item"><span class="list-icon">🔒</span> <div>Si falla escritura → la palabra va a ronda de repaso al final</div></div>
+          <div class="list-item"><span class="list-icon">🔒</span> <div>Si falla en repaso → no hay ronda perfecta, no se desbloquea extra</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="flow-arrow">↓</div>
+
+  <!-- ════════════════════════════════
+       FASE 4 · MODOS DE ESTUDIO
+  ════════════════════════════════ -->
+  <div class="phase">
+    <div class="phase-header">
+      <div class="phase-num" style="background:linear-gradient(135deg,#EF5350,#FF7043);">4</div>
+      <div>
+        <div class="phase-sub">Dentro de la lección</div>
+        <div class="phase-title">🎮 Los 4 Modos de Estudio</div>
+      </div>
+    </div>
+
+    <div class="card-grid cols-4">
+
+      <!-- VOZ -->
+      <div class="card">
+        <div class="card-accent" style="background:linear-gradient(90deg,#4CAF50,#00BCD4);"></div>
+        <div class="card-tag">Modo 1 · Mayor valor</div>
+        <div class="card-title">🎙️ Práctica Hablada</div>
+        <div class="mode-card voice">
+          <div class="mode-header">
+            <div class="mode-title">🎙️ Hablar</div>
+            <span class="badge high">+7 pts</span>
+          </div>
+          <div class="mode-desc">La IA escucha al niño y corrige con amabilidad. Nunca desanima. Correcciones pequeñas y motivadoras adaptadas a la edad.</div>
+        </div>
+        <div style="background:#F0FFF4;border-radius:10px;padding:10px;margin-bottom:10px;">
+          <div style="font-size:0.72rem;font-weight:700;color:#166534;">🤖 IA dice: "¡Casi perfecto! La 'ü' suena un poquito diferente. ¡Lo tienes, inténtalo!"</div>
+        </div>
+        <div class="tech-row">
+          <div class="tech-pill">🎤 STT · Speech-to-Text</div>
+          <div class="tech-pill">🤖 IA correctora</div>
+          <div class="tech-pill">👶 Tolerancia por edad</div>
+        </div>
+      </div>
+
+      <!-- ESCRITURA A MANO -->
+      <div class="card">
+        <div class="card-accent" style="background:linear-gradient(90deg,#29B6F6,#7C4DFF);"></div>
+        <div class="card-tag">Modo 2 · Mayor valor · criterio de dominio</div>
+        <div class="card-title">✍️ Escritura a Mano</div>
+        <div class="mode-card hand">
+          <div class="mode-header">
+            <div class="mode-title">✍️ Escribir</div>
+            <span class="badge high">+7 pts</span>
+          </div>
+          <div class="mode-desc">El niño escribe con dedo o lápiz en la tableta. OCR valida si es correcto. Sin errores en una pasada = palabra dominada.</div>
+        </div>
+        <div style="background:white;border:2px dashed #64B5F6;border-radius:10px;height:50px;display:flex;align-items:center;justify-content:center;color:#9ca3af;font-size:0.75rem;font-weight:600;margin-bottom:8px;">✏️ Área de escritura táctil</div>
+        <div class="tech-row">
+          <div class="tech-pill">📝 OCR manuscrito</div>
+          <div class="tech-pill">🔢 Tolerancia 7-8 años</div>
+          <div class="tech-pill">✅ Criterio de dominio</div>
+        </div>
+      </div>
+
+      <!-- TECLADO -->
+      <div class="card">
+        <div class="card-accent" style="background:linear-gradient(90deg,#CE93D8,#7C4DFF);"></div>
+        <div class="card-tag">Modo 3 · Valor medio</div>
+        <div class="card-title">⌨️ Teclado</div>
+        <div class="mode-card type">
+          <div class="mode-header">
+            <div class="mode-title">⌨️ Tipear</div>
+            <span class="badge mid">+2 pts</span>
+          </div>
+          <div class="mode-desc">El niño escribe la palabra con teclado. Más fácil que a mano, por eso vale menos. No cuenta para "dominar" la palabra.</div>
+        </div>
+        <div class="mini-input" style="margin-top:8px;">der Hund|</div>
+        <span class="pill violet" style="font-size:0.72rem;">Verificar ✓</span>
+      </div>
+
+      <!-- FLASH CARDS -->
+      <div class="card">
+        <div class="card-accent" style="background:linear-gradient(90deg,#FFD54F,#FFA726);"></div>
+        <div class="card-tag">Modo 4 · Menor valor</div>
+        <div class="card-title">🃏 Flash Cards</div>
+        <div class="mode-card flash">
+          <div class="mode-header">
+            <div class="mode-title">🃏 Tarjetas</div>
+            <span class="badge low">+1 pt</span>
+          </div>
+          <div class="mode-desc">El niño ve imagen + palabra y puede voltear para ver la traducción. Ritmo libre. Bueno para familiarizarse primero.</div>
+        </div>
+        <div style="text-align:center;padding:10px 0;">
+          <div style="font-size:2rem;">🐕</div>
+          <div style="font-family:'Baloo 2',cursive;font-size:1.3rem;font-weight:800;color:var(--violet);">der Hund</div>
+          <div style="font-size:0.7rem;color:#9ca3af;margin-top:3px;">👆 Toca para ver</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FLUJO DE RONDAS -->
+    <div style="margin-top:16px;">
+      <div class="card">
+        <div class="card-accent" style="background:linear-gradient(90deg,var(--berry),var(--violet));"></div>
+        <div class="card-tag">Flujo interno de una sesión</div>
+        <div class="card-title">🔄 Flujo de Rondas dentro de la Lección</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:4px;">
+          <div class="lesson-step done"><div class="step-num done">1</div><div><strong>Ronda principal</strong><br><span style="font-weight:600;color:#6b7280;font-size:0.68rem;">Todas las palabras · cualquier modo</span></div></div>
+          <div class="lesson-step active"><div class="step-num">2</div><div><strong>Ronda de repaso</strong><br><span style="font-weight:600;color:#6b7280;font-size:0.68rem;">Solo las palabras falladas · al final</span></div></div>
+          <div class="lesson-step locked"><div class="step-num locked">3</div><div><strong>Ronda perfecta</strong><br><span style="font-weight:600;font-size:0.68rem;">Repaso sin ningún error → desbloquea extra</span></div></div>
+          <div class="lesson-step locked" style="border-left-color:#FFD600;"><div class="step-num" style="background:var(--gold);color:var(--ink);">🌟</div><div><strong>Vocabulario extra</strong><br><span style="font-weight:600;font-size:0.68rem;">Solo si ronda perfecta completada</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-arrow">↓</div>
+
+  <!-- ════════════════════════════════
+       FASE 5 · PUNTOS Y RECOMPENSAS
+  ════════════════════════════════ -->
+  <div class="phase">
+    <div class="phase-header">
+      <div class="phase-num" style="background:linear-gradient(135deg,#FFD600,#FFA726);">5</div>
+      <div>
+        <div class="phase-sub">Sistema de incentivos</div>
+        <div class="phase-title">🏆 Puntos y Recompensas</div>
+      </div>
+    </div>
+
+    <div class="card-grid cols-3">
+
+      <!-- TABLA DE PUNTOS -->
+      <div class="card">
+        <div class="card-accent" style="background:linear-gradient(90deg,#FFD600,#FF7043);"></div>
+        <div class="card-tag">Sistema de puntuación definitivo</div>
+        <div class="card-title">⭐ Tabla de Puntos</div>
+        <div class="pts-table">
+          <div class="pts-row header"><div class="pts-mode">Acción</div><div>Puntos</div><div>¿Domina?</div></div>
+          <div class="pts-row"><div class="pts-mode">🎙️ Hablado correcto</div><div><span class="badge high">+7 pts</span></div><div><span class="badge mid">Bono</span></div></div>
+          <div class="pts-row"><div class="pts-mode">✍️ Escrito a mano sin error</div><div><span class="badge high">+7 pts</span></div><div><span class="badge mid">✅ Sí</span></div></div>
+          <div class="pts-row"><div class="pts-mode">⌨️ Teclado correcto</div><div><span class="badge mid">+2 pts</span></div><div><span class="badge low">No</span></div></div>
+          <div class="pts-row"><div class="pts-mode">🃏 Flash Card vista</div><div><span class="badge low">+1 pt</span></div><div><span class="badge low">No</span></div></div>
+          <div class="pts-row" style="background:#FEF3C7;"><div class="pts-mode">🔄 Superada en repaso</div><div><span class="badge high">+7 pts</span></div><div><span class="badge mid">✅ Sí</span></div></div>
+          <div class="pts-row" style="background:#FEE2E2;"><div class="pts-mode">🏆 Ronda perfecta</div><div><span class="badge high">+20 pts</span></div><div><span class="badge gold">🌟 Extra</span></div></div>
+        </div>
+        <div style="margin-top:10px;font-size:0.7rem;font-weight:700;color:#6b7280;">💡 Hablado y escrito a mano tienen el mismo valor para motivar ambos por igual.</div>
+      </div>
+
+      <!-- VISTA DEL NIÑO -->
+      <div class="card">
+        <div class="card-accent" style="background:linear-gradient(90deg,#EF5350,#FFA726);"></div>
+        <div class="card-tag">Vista del niño</div>
+        <div class="card-title">🎮 Mis Logros Esta Semana</div>
+        <div class="reward-grid">
+          <div class="reward-chip"><div class="icon">⏱️</div><div class="val">32 min</div><div class="lbl">tiempo efectivo</div></div>
+          <div class="reward-chip"><div class="icon">⭐</div><div class="val">148 pts</div><div class="lbl">puntos totales</div></div>
+          <div class="reward-chip"><div class="icon">🔥</div><div class="val">5 días</div><div class="lbl">racha activa</div></div>
+          <div class="reward-chip"><div class="icon">✅</div><div class="val">24</div><div class="lbl">palabras dominadas</div></div>
+        </div>
+        <div style="background:#FEF9C3;border:2px solid #FDE68A;border-radius:12px;padding:12px;margin-top:4px;">
+          <div style="font-size:0.72rem;font-weight:700;color:#854d0e;margin-bottom:4px;">🎮 Tiempo libre ganado:</div>
+          <div style="font-family:'Baloo 2',cursive;font-size:1.6rem;font-weight:900;color:var(--peach);">1h 20 min</div>
+          <div style="font-size:0.68rem;color:#9ca3af;font-weight:600;margin-top:2px;">Pendiente de aprobación de papás ⏳</div>
+        </div>
+      </div>
+
+      <!-- VISTA PADRES -->
+      <div class="card dark-card">
+        <div class="card-accent" style="background:linear-gradient(90deg,#7C4DFF,#29B6F6);"></div>
+        <div class="card-tag">Panel de padres · reporte semanal</div>
+        <div class="card-title">📊 Reporte Semanal</div>
+        <div class="list-item"><span class="list-icon">⏱️</span><div>Tiempo efectivo total: <strong style="color:white;">32 min</strong></div></div>
+        <div class="list-item"><span class="list-icon">✅</span><div>Palabras dominadas (escritura): <strong style="color:white;">24</strong></div></div>
+        <div class="list-item"><span class="list-icon">🎙️</span><div>Palabras con bono hablado: <strong style="color:white;">18</strong></div></div>
+        <div class="list-item"><span class="list-icon">🃏</span><div>Solo vistas en Flash Cards: <strong style="color:#9ca3af;">6</strong></div></div>
+        <div class="list-item"><span class="list-icon">🏆</span><div>Rondas perfectas: <strong style="color:#FFD600;">3</strong></div></div>
+        <div class="list-item"><span class="list-icon">🎮</span><div>Tiempo libre por aprobar: <strong style="color:#FFD600;">1h 20 min</strong></div></div>
+        <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+          <span class="pill grass" style="font-size:0.72rem;">✅ Aprobar tiempo libre</span>
+          <span class="pill ghost" style="font-size:0.72rem;border-color:#4a4a8a;color:#B388FF;">📚 Asignar lección</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════
+       RESUMEN TÉCNICO
+  ════════════════════════════════ -->
+  <div class="section-divider"><div class="section-divider-label">Stack tecnológico requerido</div></div>
+
+  <div class="card-grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;">
+    <div class="card" style="padding:16px;text-align:center;">
+      <div style="font-size:2rem;margin-bottom:6px;">🎤</div>
+      <div style="font-weight:900;font-size:0.82rem;">Speech-to-Text</div>
+      <div style="font-size:0.68rem;color:#6b7280;font-weight:600;margin-top:3px;">Reconocimiento de voz + corrección IA</div>
+    </div>
+    <div class="card" style="padding:16px;text-align:center;">
+      <div style="font-size:2rem;margin-bottom:6px;">📝</div>
+      <div style="font-weight:900;font-size:0.82rem;">OCR Manuscrito</div>
+      <div style="font-size:0.68rem;color:#6b7280;font-weight:600;margin-top:3px;">Reconocimiento escritura a mano en tableta</div>
+    </div>
+    <div class="card" style="padding:16px;text-align:center;">
+      <div style="font-size:2rem;margin-bottom:6px;">📸</div>
+      <div style="font-weight:900;font-size:0.82rem;">OCR de Imagen</div>
+      <div style="font-size:0.68rem;color:#6b7280;font-weight:600;margin-top:3px;">Screenshot Antón + foto hoja impresa</div>
+    </div>
+    <div class="card" style="padding:16px;text-align:center;">
+      <div style="font-size:2rem;margin-bottom:6px;">🤖</div>
+      <div style="font-weight:900;font-size:0.82rem;">IA Correctora</div>
+      <div style="font-size:0.68rem;color:#6b7280;font-weight:600;margin-top:3px;">Retroalimentación amable adaptada a la edad</div>
+    </div>
+    <div class="card" style="padding:16px;text-align:center;">
+      <div style="font-size:2rem;margin-bottom:6px;">📷</div>
+      <div style="font-weight:900;font-size:0.82rem;">Reconocimiento de Foto</div>
+      <div style="font-size:0.68rem;color:#6b7280;font-weight:600;margin-top:3px;">Acceso seguro de padres</div>
+    </div>
+    <div class="card" style="padding:16px;text-align:center;">
+      <div style="font-size:2rem;margin-bottom:6px;">⏱️</div>
+      <div style="font-weight:900;font-size:0.82rem;">Tracker de Tiempo</div>
+      <div style="font-size:0.68rem;color:#6b7280;font-weight:600;margin-top:3px;">Tiempo efectivo → screen time ganado</div>
+    </div>
+    <div class="card" style="padding:16px;text-align:center;">
+      <div style="font-size:2rem;margin-bottom:6px;">👤</div>
+      <div style="font-weight:900;font-size:0.82rem;">Multi-perfil</div>
+      <div style="font-size:0.68rem;color:#6b7280;font-weight:600;margin-top:3px;">Varios niños por familia con historial propio</div>
+    </div>
+    <div class="card" style="padding:16px;text-align:center;">
+      <div style="font-size:2rem;margin-bottom:6px;">📚</div>
+      <div style="font-weight:900;font-size:0.82rem;">Biblioteca Familiar</div>
+      <div style="font-size:0.68rem;color:#6b7280;font-weight:600;margin-top:3px;">Lecciones heredables entre hermanos</div>
+    </div>
+  </div>
+
+</div>
+
+<div style="text-align:center;margin-top:48px;font-size:0.7rem;color:#9ca3af;font-weight:600;">
+  WörterAbenteuer · Esquema v2 · Todo lo definido en conversación · Paul Lisa & Co A1 + Dabei! A2
+</div>
+
+</body>
+</html>

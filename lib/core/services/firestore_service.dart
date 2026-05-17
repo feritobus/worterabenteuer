@@ -5,6 +5,7 @@ import '../constants/app_constants.dart';
 import '../../features/family/domain/models/child_profile.dart';
 import '../../features/lessons/domain/models/lesson.dart';
 import '../../features/lessons/domain/models/vocab_item.dart';
+import '../../features/study/domain/models/study_session.dart';
 
 final firestoreServiceProvider =
     Provider<FirestoreService>((ref) => FirestoreService());
@@ -135,5 +136,121 @@ class FirestoreService {
         .snapshots()
         .map((snap) =>
             snap.docs.map((doc) => VocabItem.fromFirestore(doc)).toList());
+  }
+
+  // ── Sesiones ────────────────────────────────────────────────────────────────
+
+  CollectionReference<Map<String, dynamic>> _sessionsRef(String childId) =>
+      _childrenRef.doc(childId).collection(AppConstants.collSessions);
+
+  // ── Lesson progression ──────────────────────────────────────────────────────
+
+  // Call when a word is dominated for the first time. Increments wordsDominated
+  // and transitions lesson to 'in_progress'; checks for full completion.
+  Future<void> dominateWord(
+      String childId, String lessonId, VocabItem item) async {
+    final batch = _db.batch();
+    batch.update(_vocabRef(childId, lessonId).doc(item.id), item.toFirestore());
+    batch.update(_lessonsRef(childId).doc(lessonId), {
+      'wordsDominated': FieldValue.increment(1),
+      'status': 'in_progress',
+    });
+    await batch.commit();
+    await _checkLessonCompletion(childId, lessonId);
+  }
+
+  Future<void> _checkLessonCompletion(
+      String childId, String lessonId) async {
+    final doc = await _lessonsRef(childId).doc(lessonId).get();
+    final d = doc.data();
+    if (d == null) return;
+    final total = d['wordsTotal'] as int? ?? 0;
+    final dominated = d['wordsDominated'] as int? ?? 0;
+    final alreadyPerfect = (d['status'] as String?) == 'perfect';
+    if (!alreadyPerfect && total > 0 && dominated >= total) {
+      await _lessonsRef(childId)
+          .doc(lessonId)
+          .update({'status': 'completed'});
+    }
+  }
+
+  // Sets perfectRoundCompleted + extraVocabUnlocked + status='perfect'.
+  Future<void> setPerfectRound(String childId, String lessonId) async {
+    await _lessonsRef(childId).doc(lessonId).update({
+      'perfectRoundCompleted': true,
+      'extraVocabUnlocked': true,
+      'status': 'perfect',
+    });
+  }
+
+  // Adds extra vocab words to an existing lesson (batch write).
+  Future<void> addExtraVocabToLesson({
+    required String childId,
+    required String lessonId,
+    required List<VocabItem> items,
+    required int currentWordsTotal,
+  }) async {
+    final batch = _db.batch();
+    for (int i = 0; i < items.length; i++) {
+      items[i].order = currentWordsTotal + i;
+      final ref = _vocabRef(childId, lessonId).doc(items[i].id);
+      batch.set(ref, items[i].toFirestore());
+    }
+    batch.update(_lessonsRef(childId).doc(lessonId), {
+      'wordsTotal': FieldValue.increment(items.length),
+    });
+    await batch.commit();
+  }
+
+  Future<void> recordSession(StudySession session) async {
+    await _sessionsRef(session.childId).doc(session.id).set(session.toFirestore());
+
+    // Read child to compute streak update
+    final childDoc = await _childrenRef.doc(session.childId).get();
+    final data = childDoc.data();
+
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final lastActiveTs = data?['lastActiveDate'] as Timestamp?;
+    final lastDay = lastActiveTs != null
+        ? DateTime(lastActiveTs.toDate().year, lastActiveTs.toDate().month,
+            lastActiveTs.toDate().day)
+        : null;
+
+    int streak = data?['currentStreak'] as int? ?? 0;
+    int longest = data?['longestStreak'] as int? ?? 0;
+
+    final update = <String, dynamic>{
+      'effectiveTimeMinutesWeek': FieldValue.increment(session.estimatedMinutes),
+      'effectiveTimeMinutesTotal': FieldValue.increment(session.estimatedMinutes),
+    };
+
+    if (lastDay == null || lastDay.isBefore(today.subtract(const Duration(days: 1)))) {
+      // No prior session or streak broken
+      streak = 1;
+      update['currentStreak'] = 1;
+      update['lastActiveDate'] = Timestamp.fromDate(today);
+    } else if (lastDay == today.subtract(const Duration(days: 1))) {
+      // Consecutive day
+      streak++;
+      update['currentStreak'] = streak;
+      update['lastActiveDate'] = Timestamp.fromDate(today);
+    }
+    // lastDay == today → already counted today, skip streak update
+
+    if (streak > longest) update['longestStreak'] = streak;
+
+    await _childrenRef.doc(session.childId).update(update);
+  }
+
+  Future<List<StudySession>> getSessionsThisWeek(String childId) async {
+    final since = DateTime.now().subtract(const Duration(days: 7));
+    final snap = await _sessionsRef(childId)
+        .where('completedAt', isGreaterThanOrEqualTo: Timestamp.fromDate(since))
+        .orderBy('completedAt', descending: true)
+        .get();
+    return snap.docs
+        .map((doc) => StudySession.fromFirestore(doc))
+        .toList();
   }
 }

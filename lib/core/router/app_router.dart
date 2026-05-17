@@ -16,6 +16,13 @@ import '../../features/lessons/presentation/screens/lesson_detail_screen.dart';
 import '../../features/study/presentation/screens/flashcard_screen.dart';
 import '../../features/study/presentation/screens/keyboard_screen.dart';
 import '../../features/study/presentation/screens/lesson_complete_screen.dart';
+import '../../features/study/presentation/screens/handwriting_screen.dart';
+import '../../features/study/presentation/screens/voice_screen.dart';
+import '../../features/parent_zone/presentation/screens/approve_screen_time_screen.dart';
+import '../../features/parent_zone/presentation/screens/weekly_report_screen.dart';
+import '../../features/rewards/presentation/screens/rewards_screen.dart';
+import '../../features/extra_vocab/presentation/screens/extra_vocab_screen.dart';
+import '../../features/auth/presentation/screens/onboarding_screen.dart';
 import '../../features/study/domain/models/session_result.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
@@ -40,6 +47,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: AppRoutes.splash,
         builder: (context, state) => const SplashScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.onboarding,
+        builder: (context, state) => const OnboardingScreen(),
       ),
       GoRoute(
         path: AppRoutes.login,
@@ -78,11 +89,19 @@ final routerProvider = Provider<GoRouter>((ref) {
       // Placeholders para sprints futuros
       GoRoute(
         path: AppRoutes.approveScreenTime,
-        builder: (context, state) => _PlaceholderScreen(title: 'Aprobar Tiempo Libre (Sprint 8)'),
+        builder: (context, state) => const ApproveScreenTimeScreen(),
       ),
       GoRoute(
         path: AppRoutes.weeklyReport,
-        builder: (context, state) => _PlaceholderScreen(title: 'Reporte Semanal (Sprint 9)'),
+        builder: (context, state) => const WeeklyReportScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.rewards,
+        builder: (context, state) => const RewardsScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.extraVocab,
+        builder: (context, state) => const ExtraVocabScreen(),
       ),
       // Sprint 4 — Lessons & Study
       GoRoute(
@@ -105,13 +124,11 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: AppRoutes.studyVoice,
-        builder: (context, state) =>
-            _PlaceholderScreen(title: 'Hablar (Sprint 6)'),
+        builder: (context, state) => const VoiceScreen(),
       ),
       GoRoute(
         path: AppRoutes.studyHandwriting,
-        builder: (context, state) =>
-            _PlaceholderScreen(title: 'Escribir a mano (Sprint 5)'),
+        builder: (context, state) => const HandwritingScreen(),
       ),
       GoRoute(
         path: AppRoutes.studyComplete,
@@ -160,6 +177,7 @@ class AppRoutes {
   AppRoutes._();
 
   static const String splash = '/';
+  static const String onboarding = '/onboarding';
   static const String login = '/login';
   static const String children = '/children';
   static const String createChild = '/children/new';

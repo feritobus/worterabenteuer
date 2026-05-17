@@ -6,6 +6,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/services/auth_service.dart';
 import '../../../../core/router/app_router.dart';
+import 'onboarding_screen.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
@@ -29,11 +30,13 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
 
     final authState = ref.read(authStateProvider);
     authState.when(
-      data: (user) {
+      data: (user) async {
         if (!mounted || _navigated) return;
         _navigated = true;
         if (user != null) {
-          context.go(AppRoutes.children);
+          final seen = await hasSeenOnboarding();
+          if (!mounted) return;
+          context.go(seen ? AppRoutes.children : AppRoutes.onboarding);
         } else {
           context.go(AppRoutes.login);
         }
@@ -42,11 +45,13 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
         // Si sigue cargando, escuchar cuando termine
         ref.listenManual(authStateProvider, (_, next) {
           if (_navigated) return;
-          next.whenData((user) {
+          next.whenData((user) async {
             if (!mounted) return;
             _navigated = true;
             if (user != null) {
-              context.go(AppRoutes.children);
+              final seen = await hasSeenOnboarding();
+              if (!mounted) return;
+              context.go(seen ? AppRoutes.children : AppRoutes.onboarding);
             } else {
               context.go(AppRoutes.login);
             }

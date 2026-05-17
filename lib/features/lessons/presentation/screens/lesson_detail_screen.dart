@@ -118,37 +118,42 @@ class LessonDetailScreen extends ConsumerWidget {
 
             const SizedBox(height: 16),
 
-            // Nota de vocabulario extra
+            // Vocabulario extra — tap to add themed packs
             if (lesson.extraVocabUnlocked)
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: AppColors.gold.withValues(alpha: 0.12),
-                  borderRadius: BorderRadius.circular(16),
-                  border:
-                      Border.all(color: AppColors.gold.withValues(alpha: 0.4)),
-                ),
-                child: Row(
-                  children: [
-                    const Text('🌟', style: TextStyle(fontSize: 28)),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '¡Vocabulario extra desbloqueado!',
-                            style: AppTextStyles.label
-                                .copyWith(color: AppColors.sun),
-                          ),
-                          Text(
-                            'Completaste la ronda perfecta',
-                            style: AppTextStyles.caption,
-                          ),
-                        ],
+              GestureDetector(
+                onTap: () => context.push(AppRoutes.extraVocab),
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: AppColors.gold.withValues(alpha: 0.12),
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(
+                        color: AppColors.gold.withValues(alpha: 0.4)),
+                  ),
+                  child: Row(
+                    children: [
+                      const Text('🌟', style: TextStyle(fontSize: 28)),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '¡Vocabulario extra desbloqueado!',
+                              style: AppTextStyles.label
+                                  .copyWith(color: AppColors.sun),
+                            ),
+                            Text(
+                              'Toca para agregar paquetes de palabras',
+                              style: AppTextStyles.caption,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                      Icon(Icons.chevron_right_rounded,
+                          color: AppColors.gold.withValues(alpha: 0.7)),
+                    ],
+                  ),
                 ),
               ).animate().fadeIn(delay: 600.ms),
           ],
