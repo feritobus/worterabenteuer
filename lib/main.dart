@@ -5,6 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'app.dart';
 import 'features/family/domain/models/child_profile.dart';
+import 'features/lessons/domain/models/lesson.dart';
+import 'features/lessons/domain/models/vocab_item.dart';
 // Genera este archivo ejecutando: flutterfire configure
 // Ver SETUP.md para instrucciones completas
 import 'firebase_options.dart';
@@ -26,6 +28,8 @@ void main() async {
   // Hive (almacenamiento local)
   await Hive.initFlutter();
   Hive.registerAdapter(ChildProfileAdapter());
+  Hive.registerAdapter(LessonAdapter());
+  Hive.registerAdapter(VocabItemAdapter());
 
   runApp(
     const ProviderScope(

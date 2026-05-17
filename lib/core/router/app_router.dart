@@ -8,6 +8,9 @@ import '../../features/family/presentation/screens/child_selection_screen.dart';
 import '../../features/family/presentation/screens/create_child_screen.dart';
 import '../../features/parent_zone/presentation/screens/parent_login_screen.dart';
 import '../../features/parent_zone/presentation/screens/parent_dashboard_screen.dart';
+import '../../features/parent_zone/presentation/screens/import_vocab_screen.dart';
+import '../../features/parent_zone/presentation/screens/ocr_review_screen.dart';
+import '../../core/services/ocr_service.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authStateProvider);
@@ -54,11 +57,19 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: AppRoutes.parentDashboard,
         builder: (context, state) => const ParentDashboardScreen(),
       ),
-      // Placeholders para sprints futuros
       GoRoute(
         path: AppRoutes.importVocab,
-        builder: (context, state) => _PlaceholderScreen(title: 'Importar Vocabulario (Sprint 3)'),
+        builder: (context, state) => const ImportVocabScreen(),
       ),
+      GoRoute(
+        path: AppRoutes.ocrReview,
+        builder: (context, state) {
+          final result = state.extra as OcrResult? ??
+              OcrResult(words: [], sentences: [], confidence: 1.0);
+          return OcrReviewScreen(ocrResult: result);
+        },
+      ),
+      // Placeholders para sprints futuros
       GoRoute(
         path: AppRoutes.approveScreenTime,
         builder: (context, state) => _PlaceholderScreen(title: 'Aprobar Tiempo Libre (Sprint 8)'),
@@ -110,6 +121,7 @@ class AppRoutes {
   static const String parentLogin = '/parent/login';
   static const String parentDashboard = '/parent/dashboard';
   static const String importVocab = '/parent/import';
+  static const String ocrReview = '/parent/import/review';
   static const String approveScreenTime = '/parent/approve';
   static const String weeklyReport = '/parent/report';
   static const String lessons = '/lessons';
