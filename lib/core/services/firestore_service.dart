@@ -58,6 +58,12 @@ class FirestoreService {
     });
   }
 
+  Future<void> addPoints(String childId, int points) async {
+    await _childrenRef.doc(childId).update({
+      'totalPoints': FieldValue.increment(points),
+    });
+  }
+
   Future<void> approveScreenTime(String childId, int minutes) async {
     await _childrenRef.doc(childId).update({
       'earnedScreenTimePending': FieldValue.increment(-minutes),

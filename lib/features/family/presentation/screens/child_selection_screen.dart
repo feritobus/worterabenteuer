@@ -8,6 +8,7 @@ import '../../../../core/router/app_router.dart';
 import '../../../../core/services/firestore_service.dart';
 import '../../../../shared/widgets/progress_bar.dart';
 import '../../domain/models/child_profile.dart';
+import '../../../../features/lessons/presentation/providers/lesson_providers.dart';
 
 class ChildSelectionScreen extends ConsumerWidget {
   const ChildSelectionScreen({super.key});
@@ -137,23 +138,23 @@ class _ChildGrid extends StatelessWidget {
   }
 }
 
-class _ChildCard extends StatelessWidget {
+class _ChildCard extends ConsumerWidget {
   const _ChildCard({required this.child});
 
   final ChildProfile child;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     // Progreso semanal: asumimos meta de 60 min/semana
     final weeklyGoal = 60;
     final progress =
         (child.effectiveTimeMinutesWeek / weeklyGoal).clamp(0.0, 1.0);
 
     return GestureDetector(
-      onTap: () => context.push(
-        AppRoutes.lessons,
-        extra: child,
-      ),
+      onTap: () {
+        ref.read(selectedChildProvider.notifier).state = child;
+        context.push(AppRoutes.lessons);
+      },
       child: Container(
         decoration: BoxDecoration(
           color: AppColors.cloud,

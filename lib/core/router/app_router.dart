@@ -11,6 +11,12 @@ import '../../features/parent_zone/presentation/screens/parent_dashboard_screen.
 import '../../features/parent_zone/presentation/screens/import_vocab_screen.dart';
 import '../../features/parent_zone/presentation/screens/ocr_review_screen.dart';
 import '../../core/services/ocr_service.dart';
+import '../../features/lessons/presentation/screens/lesson_list_screen.dart';
+import '../../features/lessons/presentation/screens/lesson_detail_screen.dart';
+import '../../features/study/presentation/screens/flashcard_screen.dart';
+import '../../features/study/presentation/screens/keyboard_screen.dart';
+import '../../features/study/presentation/screens/lesson_complete_screen.dart';
+import '../../features/study/domain/models/session_result.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authStateProvider);
@@ -78,9 +84,48 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: AppRoutes.weeklyReport,
         builder: (context, state) => _PlaceholderScreen(title: 'Reporte Semanal (Sprint 9)'),
       ),
+      // Sprint 4 — Lessons & Study
       GoRoute(
         path: AppRoutes.lessons,
-        builder: (context, state) => _PlaceholderScreen(title: 'Lecciones (Sprint 4)'),
+        builder: (context, state) => const LessonListScreen(),
+        routes: [
+          GoRoute(
+            path: 'detail',
+            builder: (context, state) => const LessonDetailScreen(),
+          ),
+        ],
+      ),
+      GoRoute(
+        path: AppRoutes.studyFlashcard,
+        builder: (context, state) => const FlashcardScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.studyKeyboard,
+        builder: (context, state) => const KeyboardScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.studyVoice,
+        builder: (context, state) =>
+            _PlaceholderScreen(title: 'Hablar (Sprint 6)'),
+      ),
+      GoRoute(
+        path: AppRoutes.studyHandwriting,
+        builder: (context, state) =>
+            _PlaceholderScreen(title: 'Escribir a mano (Sprint 5)'),
+      ),
+      GoRoute(
+        path: AppRoutes.studyComplete,
+        builder: (context, state) {
+          final result = state.extra as SessionResult? ??
+              SessionResult(
+                pointsEarned: 0,
+                wordsAttempted: 0,
+                wordsCorrect: 0,
+                mode: 'flashcard',
+                lessonTitle: '',
+              );
+          return LessonCompleteScreen(result: result);
+        },
       ),
     ],
     errorBuilder: (context, state) => Scaffold(
@@ -125,8 +170,12 @@ class AppRoutes {
   static const String approveScreenTime = '/parent/approve';
   static const String weeklyReport = '/parent/report';
   static const String lessons = '/lessons';
-  static const String lessonDetail = '/lessons/:lessonId';
-  static const String studyMode = '/study/:lessonId/:mode';
+  static const String lessonDetail = '/lessons/detail';
+  static const String studyFlashcard = '/study/flashcard';
+  static const String studyKeyboard = '/study/keyboard';
+  static const String studyVoice = '/study/voice';
+  static const String studyHandwriting = '/study/handwriting';
+  static const String studyComplete = '/study/complete';
   static const String rewards = '/rewards';
-  static const String extraVocab = '/extra-vocab/:lessonId';
+  static const String extraVocab = '/extra-vocab';
 }
