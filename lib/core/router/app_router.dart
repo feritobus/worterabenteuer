@@ -6,6 +6,7 @@ import '../../features/auth/presentation/screens/splash_screen.dart';
 import '../../features/auth/presentation/screens/login_screen.dart';
 import '../../features/family/presentation/screens/child_selection_screen.dart';
 import '../../features/family/presentation/screens/create_child_screen.dart';
+import '../../features/family/domain/models/child_profile.dart';
 import '../../features/parent_zone/presentation/screens/parent_login_screen.dart';
 import '../../features/parent_zone/presentation/screens/parent_dashboard_screen.dart';
 import '../../features/parent_zone/presentation/screens/import_vocab_screen.dart';
@@ -73,6 +74,13 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: AppRoutes.parentDashboard,
         builder: (context, state) => const ParentDashboardScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.editChild,
+        builder: (context, state) {
+          final child = state.extra as ChildProfile?;
+          return CreateChildScreen(existingChild: child);
+        },
       ),
       GoRoute(
         path: AppRoutes.importVocab,
@@ -151,28 +159,6 @@ final routerProvider = Provider<GoRouter>((ref) {
   );
 });
 
-class _PlaceholderScreen extends StatelessWidget {
-  const _PlaceholderScreen({required this.title});
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(title)),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('🚧', style: TextStyle(fontSize: 64)),
-            const SizedBox(height: 16),
-            Text(title, textAlign: TextAlign.center),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 class AppRoutes {
   AppRoutes._();
 
@@ -183,6 +169,7 @@ class AppRoutes {
   static const String createChild = '/children/new';
   static const String parentLogin = '/parent/login';
   static const String parentDashboard = '/parent/dashboard';
+  static const String editChild = '/parent/edit-child';
   static const String importVocab = '/parent/import';
   static const String ocrReview = '/parent/import/review';
   static const String approveScreenTime = '/parent/approve';

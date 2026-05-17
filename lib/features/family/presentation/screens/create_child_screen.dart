@@ -17,7 +17,12 @@ final _levelProvider = StateProvider<String>((ref) => 'A1');
 final _savingProvider = StateProvider<bool>((ref) => false);
 
 class CreateChildScreen extends ConsumerStatefulWidget {
-  const CreateChildScreen({super.key});
+  const CreateChildScreen({super.key, this.existingChild});
+
+  /// Pass a child to edit it; null = create new.
+  final ChildProfile? existingChild;
+
+  bool get isEditing => existingChild != null;
 
   @override
   ConsumerState<CreateChildScreen> createState() => _CreateChildScreenState();
@@ -25,6 +30,28 @@ class CreateChildScreen extends ConsumerStatefulWidget {
 
 class _CreateChildScreenState extends ConsumerState<CreateChildScreen> {
   final _nameController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    final existing = widget.existingChild;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (existing != null) {
+        _nameController.text = existing.name;
+        ref.read(_nameProvider.notifier).state = existing.name;
+        ref.read(_avatarProvider.notifier).state = existing.avatar;
+        ref.read(_ageProvider.notifier).state = existing.age;
+        ref.read(_levelProvider.notifier).state = existing.level;
+      } else {
+        // Reset to defaults for a fresh create
+        _nameController.clear();
+        ref.read(_nameProvider.notifier).state = '';
+        ref.read(_avatarProvider.notifier).state = '🦊';
+        ref.read(_ageProvider.notifier).state = 9;
+        ref.read(_levelProvider.notifier).state = 'A1';
+      }
+    });
+  }
 
   @override
   void dispose() {
@@ -42,7 +69,7 @@ class _CreateChildScreenState extends ConsumerState<CreateChildScreen> {
     return Scaffold(
       backgroundColor: AppColors.pale,
       appBar: AppBar(
-        title: const Text('Nuevo perfil'),
+        title: Text(widget.isEditing ? 'Editar perfil' : 'Nuevo perfil'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_rounded),
           onPressed: () => context.pop(),
@@ -173,7 +200,7 @@ class _CreateChildScreenState extends ConsumerState<CreateChildScreen> {
             const SizedBox(height: 36),
 
             KidButton(
-              label: '🚀 Crear perfil',
+              label: widget.isEditing ? '💾 Guardar cambios' : '🚀 Crear perfil',
               onPressed: isSaving ? null : () => _saveChild(context, ref),
             ),
 
@@ -198,21 +225,26 @@ class _CreateChildScreenState extends ConsumerState<CreateChildScreen> {
 
     ref.read(_savingProvider.notifier).state = true;
     try {
-      final child = ChildProfile(
-        id: const Uuid().v4(),
-        name: name,
-        avatar: ref.read(_avatarProvider),
-        age: ref.read(_ageProvider),
-        level: ref.read(_levelProvider),
-      );
+      final existing = widget.existingChild;
+      final service = ref.read(firestoreServiceProvider);
 
-      await ref.read(firestoreServiceProvider).createChild(child);
-
-      // Reset providers
-      ref.read(_nameProvider.notifier).state = '';
-      ref.read(_avatarProvider.notifier).state = '🦊';
-      ref.read(_ageProvider.notifier).state = 9;
-      ref.read(_levelProvider.notifier).state = 'A1';
+      if (existing != null) {
+        // Edit: preserve id + progress counters
+        existing
+          ..name = name
+          ..avatar = ref.read(_avatarProvider)
+          ..age = ref.read(_ageProvider)
+          ..level = ref.read(_levelProvider);
+        await service.updateChild(existing);
+      } else {
+        await service.createChild(ChildProfile(
+          id: const Uuid().v4(),
+          name: name,
+          avatar: ref.read(_avatarProvider),
+          age: ref.read(_ageProvider),
+          level: ref.read(_levelProvider),
+        ));
+      }
 
       if (context.mounted) context.pop();
     } catch (e) {

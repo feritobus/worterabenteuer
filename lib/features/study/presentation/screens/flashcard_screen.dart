@@ -8,6 +8,7 @@ import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/services/firestore_service.dart';
+import '../../../../core/services/tts_service.dart';
 import '../../../lessons/presentation/providers/lesson_providers.dart';
 import '../../../lessons/domain/models/vocab_item.dart';
 import '../../../study/domain/models/session_result.dart';
@@ -300,7 +301,20 @@ class _FlashcardScreenState extends ConsumerState<FlashcardScreen>
                   .copyWith(color: AppColors.violet.withValues(alpha: 0.6)),
             ),
           ],
-          const SizedBox(height: 40),
+          const SizedBox(height: 16),
+          // Speaker — IconButton consumes the tap so the card doesn't flip
+          IconButton.filled(
+            tooltip: 'Escuchar',
+            icon: const Icon(Icons.volume_up_rounded),
+            color: AppColors.cloud,
+            style: IconButton.styleFrom(
+              backgroundColor: AppColors.violet,
+              padding: const EdgeInsets.all(14),
+            ),
+            onPressed: () =>
+                ref.read(ttsServiceProvider).speakGerman(item.german),
+          ),
+          const SizedBox(height: 16),
           Text(
             '👆 Toca para ver la traducción',
             style: AppTextStyles.caption

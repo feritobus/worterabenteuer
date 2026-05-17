@@ -49,6 +49,32 @@ class FirestoreService {
   }
 
   Future<void> deleteChild(String childId) async {
+    // Cascade delete: lessons → vocab items, sessions, then the child doc.
+    // Firestore doesn't cascade on its own, so we walk the tree client-side.
+    final lessonsSnap = await _lessonsRef(childId).get();
+    for (final lessonDoc in lessonsSnap.docs) {
+      final vocabSnap = await _vocabRef(childId, lessonDoc.id).get();
+      final batch = _db.batch();
+      for (final v in vocabSnap.docs) {
+        batch.delete(v.reference);
+      }
+      batch.delete(lessonDoc.reference);
+      await batch.commit();
+    }
+
+    // Delete sessions in chunks of 500 (Firestore batch limit).
+    while (true) {
+      final sessionsSnap =
+          await _sessionsRef(childId).limit(500).get();
+      if (sessionsSnap.docs.isEmpty) break;
+      final batch = _db.batch();
+      for (final s in sessionsSnap.docs) {
+        batch.delete(s.reference);
+      }
+      await batch.commit();
+      if (sessionsSnap.docs.length < 500) break;
+    }
+
     await _childrenRef.doc(childId).delete();
   }
 
@@ -220,9 +246,15 @@ class FirestoreService {
     int streak = data?['currentStreak'] as int? ?? 0;
     int longest = data?['longestStreak'] as int? ?? 0;
 
+    // Reset weekly counter when crossing into a new ISO week
+    final inSameWeek = lastDay != null && _sameIsoWeek(lastDay, today);
+
     final update = <String, dynamic>{
-      'effectiveTimeMinutesWeek': FieldValue.increment(session.estimatedMinutes),
-      'effectiveTimeMinutesTotal': FieldValue.increment(session.estimatedMinutes),
+      'effectiveTimeMinutesWeek': inSameWeek
+          ? FieldValue.increment(session.estimatedMinutes)
+          : session.estimatedMinutes,
+      'effectiveTimeMinutesTotal':
+          FieldValue.increment(session.estimatedMinutes),
     };
 
     if (lastDay == null || lastDay.isBefore(today.subtract(const Duration(days: 1)))) {
@@ -241,6 +273,14 @@ class FirestoreService {
     if (streak > longest) update['longestStreak'] = streak;
 
     await _childrenRef.doc(session.childId).update(update);
+  }
+
+  bool _sameIsoWeek(DateTime a, DateTime b) {
+    final aMonday = a.subtract(Duration(days: a.weekday - 1));
+    final bMonday = b.subtract(Duration(days: b.weekday - 1));
+    return aMonday.year == bMonday.year &&
+        aMonday.month == bMonday.month &&
+        aMonday.day == bMonday.day;
   }
 
   Future<List<StudySession>> getSessionsThisWeek(String childId) async {

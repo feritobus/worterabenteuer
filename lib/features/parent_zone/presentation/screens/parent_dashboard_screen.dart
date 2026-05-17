@@ -9,6 +9,7 @@ import '../../../../core/services/auth_service.dart';
 import '../../../../core/services/firestore_service.dart';
 import '../../data/parent_auth_service.dart';
 import '../../../family/domain/models/child_profile.dart';
+import '../../../lessons/presentation/providers/lesson_providers.dart';
 
 class ParentDashboardScreen extends ConsumerWidget {
   const ParentDashboardScreen({super.key});
@@ -162,6 +163,7 @@ class _ChildStatCard extends ConsumerWidget {
         ],
       ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(child.avatar, style: const TextStyle(fontSize: 40)),
           const SizedBox(width: 16),
@@ -213,11 +215,115 @@ class _ChildStatCard extends ConsumerWidget {
               ],
             ),
           ),
+          // Overflow menu: edit / delete
+          PopupMenuButton<_ChildAction>(
+            icon: Icon(Icons.more_vert_rounded,
+                color: AppColors.ink.withValues(alpha: 0.4)),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(14)),
+            onSelected: (action) => _onAction(context, ref, action),
+            itemBuilder: (_) => const [
+              PopupMenuItem(
+                value: _ChildAction.edit,
+                child: ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: Icon(Icons.edit_outlined, color: AppColors.violet),
+                  title: Text('Editar perfil'),
+                ),
+              ),
+              PopupMenuItem(
+                value: _ChildAction.delete,
+                child: ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: Icon(Icons.delete_outline, color: AppColors.berry),
+                  title: Text('Eliminar perfil'),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
   }
+
+  Future<void> _onAction(
+      BuildContext context, WidgetRef ref, _ChildAction action) async {
+    switch (action) {
+      case _ChildAction.edit:
+        context.push(AppRoutes.editChild, extra: child);
+      case _ChildAction.delete:
+        await _confirmAndDelete(context, ref);
+    }
+  }
+
+  Future<void> _confirmAndDelete(BuildContext context, WidgetRef ref) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogCtx) => AlertDialog(
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        title: Row(
+          children: [
+            Text(child.avatar, style: const TextStyle(fontSize: 32)),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text('Eliminar a ${child.name}?',
+                  style: AppTextStyles.title),
+            ),
+          ],
+        ),
+        content: Text(
+          'Se borrarán todas las lecciones, vocabulario y sesiones de este perfil. '
+          'Esta acción no se puede deshacer.',
+          style: AppTextStyles.body,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogCtx).pop(false),
+            child: Text('Cancelar', style: AppTextStyles.label),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(dialogCtx).pop(true),
+            style: TextButton.styleFrom(foregroundColor: AppColors.berry),
+            child: Text('Eliminar',
+                style:
+                    AppTextStyles.label.copyWith(color: AppColors.berry)),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed != true) return;
+    try {
+      await ref.read(firestoreServiceProvider).deleteChild(child.id);
+      // Clear active selection if it was this child
+      final selected = ref.read(selectedChildProvider);
+      if (selected?.id == child.id) {
+        ref.read(selectedChildProvider.notifier).state = null;
+        ref.read(selectedLessonProvider.notifier).state = null;
+      }
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Perfil de ${child.name} eliminado'),
+            backgroundColor: AppColors.berry,
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12)),
+          ),
+        );
+      }
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error al eliminar: $e')),
+        );
+      }
+    }
+  }
 }
+
+enum _ChildAction { edit, delete }
 
 class _ActionCard extends StatelessWidget {
   const _ActionCard({

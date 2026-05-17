@@ -44,6 +44,6 @@ class DefaultFirebaseOptions {
     projectId: 'TU_PROJECT_ID',
     storageBucket: 'TU_PROJECT_ID.appspot.com',
     iosClientId: 'TU_IOS_CLIENT_ID',
-    iosBundleId: 'com.worterabenteuer.worterabenteuer',
+    iosBundleId: 'com.worterabenteuer.worterabenteuer', // matches Android applicationId
   );
 }

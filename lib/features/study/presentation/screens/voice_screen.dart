@@ -185,7 +185,8 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen>
     item.voiceAttempts++;
     if (correct) {
       item.voiceCorrect++;
-      item.voiceBonus = true;
+      // Bonus only applies once the word is already dominated (schema rule)
+      if (item.dominated) item.voiceBonus = true;
       setState(() {
         _pointsEarned += AppConstants.pointsVoice;
         _wordsCorrect++;

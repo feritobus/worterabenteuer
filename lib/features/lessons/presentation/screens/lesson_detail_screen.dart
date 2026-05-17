@@ -193,7 +193,6 @@ class LessonDetailScreen extends ConsumerWidget {
       badge: 'MEJOR',
       color: AppColors.violet,
       route: AppRoutes.studyHandwriting,
-      requiresPerfect: true,
     ),
   ];
 }

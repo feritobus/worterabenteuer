@@ -132,6 +132,34 @@ class _ExtraVocabScreenState extends ConsumerState<ExtraVocabScreen> {
   Widget build(BuildContext context) {
     final lesson = ref.watch(selectedLessonProvider);
 
+    if (lesson == null || !lesson.perfectRoundCompleted) {
+      return Scaffold(
+        backgroundColor: AppColors.pale,
+        appBar: AppBar(title: const Text('Vocabulario Extra 🌟')),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(32),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('🔒', style: TextStyle(fontSize: 64)),
+                const SizedBox(height: 16),
+                Text('Aún no desbloqueado', style: AppTextStyles.headline),
+                const SizedBox(height: 8),
+                Text(
+                  'Completa una ronda perfecta de escritura\npara desbloquear paquetes extra.',
+                  style: AppTextStyles.body.copyWith(
+                    color: AppColors.ink.withValues(alpha: 0.5),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
       backgroundColor: AppColors.pale,
       appBar: AppBar(
@@ -151,7 +179,7 @@ class _ExtraVocabScreenState extends ConsumerState<ExtraVocabScreen> {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  'Agrega un paquete de palabras extra a "${lesson?.title ?? 'tu lección'}"',
+                  'Agrega un paquete de palabras extra a "${lesson.title}"',
                   style: AppTextStyles.body.copyWith(
                     color: AppColors.ink.withValues(alpha: 0.5),
                   ),

@@ -54,14 +54,13 @@ class WeeklyReportScreen extends ConsumerWidget {
 
   Widget _buildHeader() {
     final now = DateTime.now();
-    final weekStart = now.subtract(Duration(days: now.weekday - 1));
-    final label =
-        '${_dayMonth(weekStart)} – ${_dayMonth(now)}';
+    final since = now.subtract(const Duration(days: 7));
+    final label = '${_dayMonth(since)} – ${_dayMonth(now)}';
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
       child: Text(
-        'Esta semana ($label)',
+        'Últimos 7 días ($label)',
         style: AppTextStyles.caption
             .copyWith(color: AppColors.ink.withValues(alpha: 0.45)),
       ),

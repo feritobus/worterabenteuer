@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
+import '../../../../core/constants/app_constants.dart';
 import '../../../../core/services/firestore_service.dart';
 import '../../../family/domain/models/child_profile.dart';
 
@@ -138,12 +139,10 @@ class _ChildApprovalCard extends StatelessWidget {
   final ValueChanged<int> onChanged;
   final VoidCallback onApprove;
 
-  // 1 study min = 2.5 screen-time min
-  static const double _ratio = 2.5;
-
   @override
   Widget build(BuildContext context) {
-    final screenMinutes = (minutes * _ratio).round();
+    final screenMinutes =
+        (minutes * AppConstants.screenTimeRatio).round();
     final pending = child.earnedScreenTimePending;
 
     return Container(

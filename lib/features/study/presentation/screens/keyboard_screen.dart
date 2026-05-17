@@ -7,6 +7,7 @@ import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/services/firestore_service.dart';
+import '../../../../core/services/tts_service.dart';
 import '../../../lessons/presentation/providers/lesson_providers.dart';
 import '../../../lessons/domain/models/vocab_item.dart';
 import '../../../study/domain/models/session_result.dart';
@@ -257,6 +258,8 @@ class _KeyboardScreenState extends ConsumerState<KeyboardScreen> {
                     correctAnswer: item.german,
                     userAnswer: _answerController.text.trim(),
                     points: AppConstants.pointsTyped,
+                    onPronounce: () =>
+                        ref.read(ttsServiceProvider).speakGerman(item.german),
                   ).animate().fadeIn(duration: 300.ms).slideY(begin: 0.2, end: 0),
 
                   const SizedBox(height: 20),
@@ -355,12 +358,14 @@ class _ResultBanner extends StatelessWidget {
     required this.correctAnswer,
     required this.userAnswer,
     required this.points,
+    required this.onPronounce,
   });
 
   final bool isCorrect;
   final String correctAnswer;
   final String userAnswer;
   final int points;
+  final VoidCallback onPronounce;
 
   @override
   Widget build(BuildContext context) {
@@ -401,6 +406,13 @@ class _ResultBanner extends StatelessWidget {
               style: AppTextStyles.label.copyWith(color: AppColors.sun),
             ),
           ],
+          const SizedBox(height: 10),
+          TextButton.icon(
+            onPressed: onPronounce,
+            icon: const Icon(Icons.volume_up_rounded),
+            label: const Text('Escuchar pronunciación'),
+            style: TextButton.styleFrom(foregroundColor: color),
+          ),
         ],
       ),
     );

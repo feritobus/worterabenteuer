@@ -57,7 +57,7 @@ class _LessonCompleteScreenState extends ConsumerState<LessonCompleteScreen> {
             session.estimatedMinutes,
           );
     } catch (_) {
-      // Network error: session will sync when back online via Firestore offline cache
+      // Offline: session will sync via Firestore offline cache
     }
   }
 
@@ -172,7 +172,7 @@ class _LessonCompleteScreenState extends ConsumerState<LessonCompleteScreen> {
                       const Text('🎮', style: TextStyle(fontSize: 20)),
                       const SizedBox(width: 8),
                       Text(
-                        '+${_estimateMinutes(result)} min de crédito ganados',
+                        '+${result.estimatedMinutes} min de crédito ganados',
                         style: AppTextStyles.label.copyWith(
                           color: AppColors.cloud,
                         ),
@@ -208,17 +208,6 @@ class _LessonCompleteScreenState extends ConsumerState<LessonCompleteScreen> {
         ),
       ),
     );
-  }
-
-  int _estimateMinutes(SessionResult r) {
-    const secsPerWord = {
-      'flashcard': 12,
-      'keyboard': 25,
-      'handwriting': 40,
-      'voice': 20,
-    };
-    final secs = (secsPerWord[r.mode] ?? 20) * r.wordsAttempted;
-    return (secs / 60).ceil().clamp(1, 60);
   }
 }
 

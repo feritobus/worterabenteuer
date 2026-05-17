@@ -13,7 +13,7 @@ final selectedLessonProvider = StateProvider<Lesson?>((ref) => null);
 // Lecciones del niño activo
 final childLessonsProvider = StreamProvider<List<Lesson>>((ref) {
   final child = ref.watch(selectedChildProvider);
-  if (child == null) return const Stream.empty();
+  if (child == null) return Stream.value(const <Lesson>[]);
   return ref.watch(firestoreServiceProvider).watchLessons(child.id);
 });
 

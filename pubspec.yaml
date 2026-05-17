@@ -15,10 +15,6 @@ dependencies:
   firebase_core: ^3.6.0
   firebase_auth: ^5.3.0
   cloud_firestore: ^5.4.0
-  firebase_storage: ^12.3.0
-  cloud_functions: ^5.1.0
-  firebase_analytics: ^11.3.0
-  firebase_crashlytics: ^4.1.0
 
   # Auth
   google_sign_in: ^6.2.0
@@ -34,10 +30,9 @@ dependencies:
   google_mlkit_digital_ink_recognition: ^0.12.0
   google_mlkit_text_recognition: ^0.13.0
 
-  # Speech & Audio
+  # Speech
   speech_to_text: ^7.0.0
   flutter_tts: ^4.0.0
-  audioplayers: ^6.1.0
 
   # Local Storage
   hive: ^2.2.3
@@ -45,21 +40,16 @@ dependencies:
 
   # Image
   image_picker: ^1.1.0
-  image_cropper: ^12.2.1
 
   # UI
   google_fonts: ^6.2.0
-  lottie: ^3.1.0
   flutter_animate: ^4.5.0
-  cached_network_image: ^3.4.0
 
-  # Permissions
+  # Permissions (required transitively by speech_to_text + image_picker on Android)
   permission_handler: ^11.3.0
 
   # Utils
-  intl: ^0.19.0
   uuid: ^4.5.0
-  path_provider: ^2.1.4
 
 dev_dependencies:
   flutter_test:

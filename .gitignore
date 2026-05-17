@@ -43,3 +43,15 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Firebase config — contains API keys, must not be committed
+**/google-services.json
+**/GoogleService-Info.plist
+# Note: lib/firebase_options.dart is intentionally committed with placeholder
+# values so the build compiles. Run `flutterfire configure` locally to populate
+# real keys; do NOT commit the populated version.
+
+# Secrets
+.env
+.env.*
+!.env.example
