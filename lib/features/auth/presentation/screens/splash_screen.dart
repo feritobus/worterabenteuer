@@ -53,7 +53,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
           });
         });
       },
-      error: (_, __) {
+      error: (error, stack) {
         if (!mounted || _navigated) return;
         _navigated = true;
         context.go(AppRoutes.login);

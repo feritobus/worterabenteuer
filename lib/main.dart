@@ -27,7 +27,7 @@ void main() async {
 
   runApp(
     const ProviderScope(
-      child: WörterAbenteuerApp(),
+      child: WoerterAbenteuerApp(),
     ),
   );
 }

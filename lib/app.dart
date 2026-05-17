@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'core/theme/app_theme.dart';
 import 'core/router/app_router.dart';
 
-class WörterAbenteuerApp extends ConsumerWidget {
-  const WörterAbenteuerApp({super.key});
+class WoerterAbenteuerApp extends ConsumerWidget {
+  const WoerterAbenteuerApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

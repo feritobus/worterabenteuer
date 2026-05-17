@@ -45,7 +45,7 @@ dependencies:
 
   # Image
   image_picker: ^1.1.0
-  image_cropper: ^7.0.0
+  image_cropper: ^12.2.1
 
   # UI
   google_fonts: ^6.2.0
