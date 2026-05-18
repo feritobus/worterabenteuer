@@ -1,4 +1,4 @@
-package com.worterabenteuer.worterabenteuer
+package com.feritobus.worterabenteuer
 
 import io.flutter.embedding.android.FlutterActivity
 

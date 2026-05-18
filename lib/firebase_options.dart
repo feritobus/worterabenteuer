@@ -28,22 +28,21 @@ class DefaultFirebaseOptions {
     }
   }
 
-  // REEMPLAZAR con valores reales de Firebase Console
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'TU_API_KEY_ANDROID',
-    appId: 'TU_APP_ID_ANDROID',
-    messagingSenderId: 'TU_SENDER_ID',
-    projectId: 'TU_PROJECT_ID',
-    storageBucket: 'TU_PROJECT_ID.appspot.com',
+    apiKey: 'AIzaSyAoA4xnvo8lRZ9APnzh_0ehEE6Z_gsFhOo',
+    appId: '1:91875643342:android:fd98d0bee4c1068fc9659f',
+    messagingSenderId: '91875643342',
+    projectId: 'worterabenteuer',
+    storageBucket: 'worterabenteuer.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'TU_API_KEY_IOS',
     appId: 'TU_APP_ID_IOS',
-    messagingSenderId: 'TU_SENDER_ID',
-    projectId: 'TU_PROJECT_ID',
-    storageBucket: 'TU_PROJECT_ID.appspot.com',
+    messagingSenderId: '91875643342',
+    projectId: 'worterabenteuer',
+    storageBucket: 'worterabenteuer.firebasestorage.app',
     iosClientId: 'TU_IOS_CLIENT_ID',
-    iosBundleId: 'com.worterabenteuer.worterabenteuer', // matches Android applicationId
+    iosBundleId: 'com.feritobus.worterabenteuer',
   );
 }

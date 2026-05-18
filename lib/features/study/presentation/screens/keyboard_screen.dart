@@ -230,6 +230,11 @@ class _KeyboardScreenState extends ConsumerState<KeyboardScreen> {
                     focusNode: _focusNode,
                     onSubmit: _verify,
                   ).animate().fadeIn(delay: 150.ms),
+                  const SizedBox(height: 10),
+                  _GermanSpecialKeys(
+                    controller: _answerController,
+                    focusNode: _focusNode,
+                  ).animate().fadeIn(delay: 200.ms),
                   const SizedBox(height: 16),
                   SizedBox(
                     width: double.infinity,
@@ -414,6 +419,77 @@ class _ResultBanner extends StatelessWidget {
             style: TextButton.styleFrom(foregroundColor: color),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _GermanSpecialKeys extends StatelessWidget {
+  const _GermanSpecialKeys({
+    required this.controller,
+    required this.focusNode,
+  });
+
+  final TextEditingController controller;
+  final FocusNode focusNode;
+
+  static const _keys = ['ä', 'ö', 'ü', 'Ä', 'Ö', 'Ü', 'ß'];
+
+  void _insert(String char) {
+    final text = controller.text;
+    final sel = controller.selection;
+    final start = sel.start < 0 ? text.length : sel.start;
+    final end = sel.end < 0 ? text.length : sel.end;
+    final newText = text.replaceRange(start, end, char);
+    controller.value = TextEditingValue(
+      text: newText,
+      selection: TextSelection.collapsed(offset: start + char.length),
+    );
+    focusNode.requestFocus();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: 8,
+      runSpacing: 8,
+      alignment: WrapAlignment.center,
+      children: _keys.map((k) => _KeyButton(label: k, onTap: () => _insert(k))).toList(),
+    );
+  }
+}
+
+class _KeyButton extends StatelessWidget {
+  const _KeyButton({required this.label, required this.onTap});
+
+  final String label;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 44,
+        height: 44,
+        decoration: BoxDecoration(
+          color: AppColors.cloud,
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: AppColors.violet.withValues(alpha: 0.4), width: 1.5),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.violet.withValues(alpha: 0.1),
+              blurRadius: 4,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Center(
+          child: Text(
+            label,
+            style: AppTextStyles.bodyBold.copyWith(color: AppColors.violet),
+          ),
+        ),
       ),
     );
   }

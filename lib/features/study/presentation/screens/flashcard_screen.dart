@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
@@ -34,6 +35,7 @@ class _FlashcardScreenState extends ConsumerState<FlashcardScreen>
   @override
   void initState() {
     super.initState();
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     _flipController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 350),
@@ -54,6 +56,7 @@ class _FlashcardScreenState extends ConsumerState<FlashcardScreen>
 
   @override
   void dispose() {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     _flipController.dispose();
     super.dispose();
   }

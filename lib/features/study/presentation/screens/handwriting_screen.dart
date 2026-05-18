@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_mlkit_digital_ink_recognition/google_mlkit_digital_ink_recognition.dart';
+import 'package:google_mlkit_digital_ink_recognition/google_mlkit_digital_ink_recognition.dart' as ml;
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/constants/app_constants.dart';
@@ -31,12 +31,12 @@ class _HandwritingScreenState extends ConsumerState<HandwritingScreen> {
   int _pointsEarned = 0;
   int _wordsCorrect = 0;
 
-  late DigitalInkRecognizer _recognizer;
+  late ml.DigitalInkRecognizer _recognizer;
   bool _modelReady = false;
   bool _modelDownloading = false;
 
   // Ink strokes for ML Kit
-  final List<InkStroke> _inkStrokes = [];
+  final List<ml.Stroke> _inkStrokes = [];
   // Strokes for painting (list of paths)
   final List<List<Offset>> _paintStrokes = [];
   List<Offset> _activeStroke = [];
@@ -50,24 +50,29 @@ class _HandwritingScreenState extends ConsumerState<HandwritingScreen> {
   @override
   void initState() {
     super.initState();
-    _recognizer = DigitalInkRecognizer(languageCode: 'de');
+    _recognizer = ml.DigitalInkRecognizer(languageCode: 'de');
     _initModel();
     _loadVocab();
   }
 
   Future<void> _initModel() async {
-    final manager = DigitalInkRecognizerModelManager();
-    final downloaded = await manager.isModelDownloaded('de');
-    if (!downloaded) {
-      setState(() => _modelDownloading = true);
-      await manager.downloadModel('de');
-      setState(() => _modelDownloading = false);
+    try {
+      final manager = ml.DigitalInkRecognizerModelManager();
+      final downloaded = await manager.isModelDownloaded('de');
+      if (!downloaded) {
+        if (mounted) setState(() => _modelDownloading = true);
+        await manager.downloadModel('de');
+        if (mounted) setState(() => _modelDownloading = false);
+      }
+      if (mounted) setState(() => _modelReady = true);
+    } catch (_) {
+      if (mounted) setState(() => _modelDownloading = false);
     }
-    setState(() => _modelReady = true);
   }
 
   Future<void> _loadVocab() async {
     final vocab = await ref.read(lessonVocabProvider.future);
+    if (!mounted) return;
     setState(() {
       _mainVocab = List.from(vocab);
       _loading = false;
@@ -136,10 +141,11 @@ class _HandwritingScreenState extends ConsumerState<HandwritingScreen> {
     if (_showResult || _recognizing || _activeStroke.isEmpty) return;
     final now = DateTime.now().millisecondsSinceEpoch;
     final inkPoints = _activeStroke.asMap().entries.map((e) {
-      return InkPoint(point: e.value, t: now + e.key);
+      return ml.StrokePoint(x: e.value.dx, y: e.value.dy, t: now + e.key);
     }).toList();
     setState(() {
-      _inkStrokes.add(InkStroke(points: inkPoints));
+      final stroke = ml.Stroke()..points = inkPoints;
+      _inkStrokes.add(stroke);
       _paintStrokes.add(List.from(_activeStroke));
       _activeStroke = [];
     });
@@ -160,7 +166,8 @@ class _HandwritingScreenState extends ConsumerState<HandwritingScreen> {
     if (_inkStrokes.isEmpty || _recognizing || !_modelReady) return;
     setState(() => _recognizing = true);
     try {
-      final candidates = await _recognizer.recognize(Ink(strokes: _inkStrokes));
+      final ink = ml.Ink()..strokes = _inkStrokes;
+      final candidates = await _recognizer.recognize(ink);
       final recognized = candidates.isNotEmpty ? candidates.first.text : '';
       final child = ref.read(selectedChildProvider);
       final age = child?.age ?? 9;

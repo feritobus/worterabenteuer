@@ -153,11 +153,15 @@ class LoginScreen extends ConsumerWidget {
       final user = await ref.read(authServiceProvider).signInWithGoogle();
       if (user != null && context.mounted) {
         context.go(AppRoutes.children);
+        return;
       }
     } catch (e) {
-      ref.read(_loginErrorProvider.notifier).state =
-          'No se pudo iniciar sesión con Google. Intenta de nuevo.';
-    } finally {
+      if (context.mounted) {
+        ref.read(_loginErrorProvider.notifier).state =
+            'No se pudo iniciar sesión con Google. Intenta de nuevo.';
+      }
+    }
+    if (context.mounted) {
       ref.read(_loginLoadingProvider.notifier).state = false;
     }
   }

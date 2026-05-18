@@ -25,6 +25,7 @@ class OcrService {
       for (final line in block.lines) {
         final t = line.text.trim();
         if (t.isEmpty || t.length < 2) continue;
+        if (_isNoise(t)) continue;
         final box = line.boundingBox;
         lines.add(_OcrLine(
           text: t,
@@ -113,6 +114,30 @@ class OcrService {
     );
   }
 
+  // ── Noise filter ────────────────────────────────────────────
+
+  bool _isNoise(String text) {
+    final t = text.trim();
+    // Pure numbers or fractions (page numbers, progress "3/10")
+    if (RegExp(r'^\d+[\s\/\.\-]?\d*[\%]?$').hasMatch(t)) return true;
+    // All-caps short strings — UI labels, buttons, tab names
+    if (t == t.toUpperCase() && t.length <= 12 && !t.contains(' ')) return true;
+    // Common textbook / app chrome patterns
+    if (RegExp(
+      r'^(Lektion|Kapitel|Seite|Einheit|Unit|Chapter|Page|'
+      r'Übung|Exercise|Vocabulary|Vokabeln|Wörter|Anton|Antón|'
+      r'Richtig|Falsch|Weiter|Zurück|Start|Ende|Pause|Stop|'
+      r'Correct|Wrong|Next|Back|Score|Punkte)[\s\d\.\:\!]*$',
+      caseSensitive: false,
+    ).hasMatch(t)) return true;
+    // Mostly non-letter characters (icons, bullet lines, separators)
+    final letters = t.replaceAll(RegExp(r'[^a-zA-ZäöüÄÖÜßáéíóúñ]'), '');
+    if (letters.length < t.length * 0.55) return true;
+    // Single emoji or symbol lines
+    if (RegExp(r'^[\p{So}\p{Sk}\p{Sm}\s]+$', unicode: true).hasMatch(t)) return true;
+    return false;
+  }
+
   // ── Heuristics ─────────────────────────────────────────────
 
   bool _looksGerman(String text) {
@@ -154,10 +179,11 @@ class OcrService {
   }
 
   String _cleanText(String text) {
-    // Remove leading numbers like "1." or "a)"
     return text
-        .replaceAll(RegExp(r'^\d+[\.\)]\s*'), '')
-        .replaceAll(RegExp(r'^[a-z][\.\)]\s*'), '')
+        .replaceAll(RegExp(r'^\d+[\.\)]\s*'), '')   // "1. " or "1)"
+        .replaceAll(RegExp(r'^[a-z][\.\)]\s*'), '')  // "a) "
+        .replaceAll(RegExp(r'[✓✗✔✘☑☒✅❌⭐🔊🎧]+'), '') // Antón UI icons
+        .replaceAll(RegExp(r'\s{2,}'), ' ')           // collapse spaces
         .trim();
   }
 }

@@ -177,7 +177,7 @@ class LessonDetailScreen extends ConsumerWidget {
       badge: 'MEJOR',
       color: AppColors.grass,
       route: AppRoutes.studyVoice,
-      requiresPerfect: true,
+      requiresPerfect: false, // TODO: re-lock after testing (requiresPerfect: true)
     ),
     _ModeInfo(
       emoji: '⌨️',
